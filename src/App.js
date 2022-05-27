@@ -1,5 +1,5 @@
 import {
-  BrowserRouter,
+  BrowserRouter as Router,
   Routes,
   Route
 } from "react-router-dom";
@@ -9,11 +9,12 @@ import TopicsListPage from './pages/TopicsListPage';
 function App() {
   return (
     <>
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route path='/' element={<TopicsListPage />} />
+        
       </Routes>
-    </BrowserRouter>
+    </Router>
     </>
   );
 }
