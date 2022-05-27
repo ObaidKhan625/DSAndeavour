@@ -1,5 +1,5 @@
-import React from 'react'
-import TopicsListPage from '../pages/TopicsListPage'
+import React from 'react';
+import TopicsListPage from '../pages/TopicsListPage';
 
 const Body = () => {
   return (
