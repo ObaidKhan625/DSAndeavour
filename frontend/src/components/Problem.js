@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{useState} from 'react';
 // import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -43,7 +43,7 @@ const Problem = (props) => {
   //   setExpanded(!expanded);
   // };
 
-  const [checked, setChecked] = React.useState(false);
+  const [checked, setChecked] = useState(false);
 
   const handleChange = (event) => {
     setChecked(event.target.checked);

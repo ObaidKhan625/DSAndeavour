@@ -61,7 +61,7 @@ const Topic = (props) => {
   //     },
   //   },
   // });
-
+console.log(props)
   const style = { backgroundColor: props.topic.type };
 
   return (
