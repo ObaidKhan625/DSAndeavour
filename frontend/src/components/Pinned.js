@@ -14,7 +14,7 @@ import '../css/DummyTopic.css';
 import { withTheme } from "@emotion/react";
 // import {AiFillPushpin}  from 'react-icons/fa';
 
-export default function Problem(props) {
+export default function Pinned(props) {
 
   const [AddFavourite, setAddFavorited] = useState(false)
 
@@ -23,16 +23,8 @@ export default function Problem(props) {
 
 
   const onClickFavorite = () => {
-                if(!AddFavourite)
-                {
-                  console.log("YES")
-                  setAddFavorited(true)
-                }
-                else{
-                  console.log("NO")
-                  setAddFavorited(false)
-                }
-             
+                
+             setAddFavorited(false)
               
     // if (user.userData && !user.userData.isAuth) {
     //     return alert('Please Log in first');
@@ -84,23 +76,23 @@ export default function Problem(props) {
       <Col lg={4} md={6} xs={24}>
      
         <MDBCard
-          background={props.topic.type === "light" ? "mb-3" :props.topic.type}
+          background={props.pinnedtopic.type === "light" ? "mb-3" :props.pinnedtopic.type}
           // background={props.topic.type==='light'?'mb-3': 'text-white mb-3'}
-          className={props.topic.type === "light" ? "mb-3" : "text-white mb-3"}
+          className={props.pinnedtopic.type === "light" ? "mb-3" : "text-white mb-3"}
           style={{ maxWidth: "18rem" }}
           // path ='https://externalwebsite.com'
         >
           <MDBCardHeader>
             <p style={styleObjWhite}  >
-            <Link to='/' className="link" ><i>{props.topic.name}</i></Link>
+            <Link to='/' className="link" ><i>{props.pinnedtopic.name}</i></Link>
               {/* <Button><AiFillPushpin />?</Button> */}
               </p>
            
-              <Button variant="outline-success" onClick={onClickFavorite} > {!AddFavourite ? "Add to Favorites" : "Remove from favorites"}</Button>
+              <Button variant="outline-success" onClick={onClickFavorite} >REMOVE FROM FAVOURITE</Button>
             
           </MDBCardHeader>
           <MDBCardBody>
-            <MDBCardTitle>{props.topic.name}</MDBCardTitle>
+            <MDBCardTitle>{props.pinnedtopic.name}</MDBCardTitle>
             <MDBCardText>
               Some quick example text to build on the card title and make up the
               bulk of the card's content.
