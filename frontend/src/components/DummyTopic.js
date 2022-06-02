@@ -82,7 +82,6 @@ export default function Problem(props) {
   return (
     <div data-aos="fade-up">
       <Col lg={4} md={6} xs={24}>
-     
         <MDBCard
           background={props.topic.type === "light" ? "mb-3" :props.topic.type}
           // background={props.topic.type==='light'?'mb-3': 'text-white mb-3'}
@@ -92,7 +91,7 @@ export default function Problem(props) {
         >
           <MDBCardHeader>
             <p style={styleObjWhite}  >
-            <Link to='/' className="link" ><i>{props.topic.name}</i></Link>
+            <Link to={`/topics/${props.topic.name}`} className="link" ><i>{props.topic.name}</i></Link>
               {/* <Button><AiFillPushpin />?</Button> */}
               </p>
            
@@ -107,7 +106,6 @@ export default function Problem(props) {
             </MDBCardText>
           </MDBCardBody>
         </MDBCard>
-    
       </Col>
     </div>
   );

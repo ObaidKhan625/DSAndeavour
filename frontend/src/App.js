@@ -15,8 +15,8 @@ function App() {
     <Router>
       <Routes>
         <Route path ='/' element ={<HomePage/>}/>
-        <Route path = '/topiclist' element = {<TopicsListPage />} />
-        <Route path = "/trees" element = {<TopicsQuestionsPage />}/>
+        <Route path = '/topics' element = {<TopicsListPage />} />
+        <Route path = "/topics/:topicName" element = {<TopicsQuestionsPage />}/>
         <Route path = "/test" element = {<Test />}/>
       </Routes>
     </Router>

@@ -28,7 +28,7 @@ function HomePage() {
         > */}
            
             <b>WELCOME TO STRIVER SHEET</b>
-           <Button><Link to="/topiclist">GET STARTED</Link></Button> 
+           <Button><Link to="/topics">GET STARTED</Link></Button> 
         
         </div>
 
