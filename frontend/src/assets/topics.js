@@ -1,160 +1,159 @@
 let topics = [
-    {
-        'index':'1',
-        'name': 'ARRAYS 1',
-        'type': 'blue',
-        
-    },
-    {
-        'index':'2',
-        'name': 'ARRAYS 2',
-        'type': 'purple'
-    },
-    {
-        'index':'3',
-        'name': 'ARRAYS 3',
-        'type': 'green'
-    },
-    {
-        'index':'4',
-        'name': 'ARRAYS 4',
-        'type': 'red'
-    },
-    {
-        'index':'5',
-        'name': 'LINKED LIST',
-        'type': 'yellow'
-    },
-    {
-        'index':'6',
-        'name': 'LINKED LIST 2',
-        'type': 'cyan'
-    },
-    {
-        'index':'7',
-        'name': 'LINKED LIST AND ARRAY',
-        'type': 'white'
-    },
-    {
-        'index':'8',
-        'name': 'GREDDY ALGORITHM',
-        'type': 'black'
-    },
-    {
-        'index':'9',
-        'name': 'RECURSION',
-        'type': 'blue'
-    },
-    {
-        'index':'10',
-        'name': 'RECURSION AND BACKTRACK',
-        'type': 'purple'
-    },
-    {
-        'index':'11',
-        'name': 'BINARY SEARCH',
-        'type': 'green'
-    },
-    {
-        'index':'12',
-        'name': 'HEAPS',
-        'type': 'red'
-    },
-    {
-        'index':'13',
-        'name': 'STACKS AND QUEUE',
-        'type': 'yellow'
-    },
-    {
-        'index':'14',
-        'name': 'STACKS AND QUEUE 2',
-        'type': 'cyan'
-    },
-    {
-        'index':'15',
-        'name': 'STRING',
-        'type': 'white'
-    },
-    {
-        'index':'16',
-        'name': 'STRING 2',
-        'type': 'black'
-    },
-    {
-        'index':'17',
-        'name': 'BINARY TREE',
-        'type': 'blue'
-    },
-    {
-        'index':'18',
-        'name': 'BINARY TREE 2',
-        'type': 'purple'
-    },
-    {
-        'index':'19',
-        'name': 'BINARY TREE 3',
-        'type': 'green'
-    },
-    {
-        'index':'20',
-        'name': 'BINARY SEARCH TREE ',
-        'type': 'yellow'
-    },
-    {
-        'index':'21',
-        'name': 'BINARY SEARCH TREE 2',
-        'type': 'red'
-    },
-    {
-        'index':'22',
-        'name': 'BINARY SEARCH TREE (MISCELLAEOUS) ',
-        'type': 'cyan'
-    },
-    {
-        'index':'23',
-        'name': 'GRAPH',
-        'type': 'white'
-    },
-    {
-        'index':'24',
-        'name': 'GRAPH 2',
-        'type': 'black'
-    },
-    {
-        'index':'25',
-        'name': 'DYNAMIC PROGRAMMING',
-        'type': 'blue'
-    },
-    {
-        'index':'26',
-        'name': 'DYNAMIC PROGRAMMING 2',
-        'type': 'purple'
-    },
-    {
-        'index':'27',
-        'name': 'TRIE',
-        'type': 'green'
-    },
-    {
-        'index':'28',
-        'name': 'OPERATING SYSTEM REVISION',
-        'type': 'yellow'
-    },
-    {
-        'index':'29',
-        'name': 'DBMS REVISION',
-        'type': 'cyan'
-    },
-    {
-        'index':'30',
-        'name': 'COMPUTER NETWORK REVISION',
-        'type': 'white'
-    },
-    {
-        'index':'31',
-        'name': 'PROJECT OVERVIEW',
-        'type': 'black'
-    },
-]
+  {
+    index: "1",
+    name: "ARRAYS 1",
+    type: "primary",
+  },
+  {
+    index: "2",
+    name: "ARRAYS 2",
+    type: "secondary",
+  },
+  {
+    index: "3",
+    name: "ARRAYS 3",
+    type: "success",
+  },
+  {
+    index: "4",
+    name: "ARRAYS 4",
+    type: "danger",
+  },
+  {
+    index: "5",
+    name: "LINKED LIST 1",
+    type: "warning",
+  },
+  {
+    index: "6",
+    name: "LINKED LIST 2",
+    type: "info",
+  },
+  {
+    index: "7",
+    name: "LINKED LIST AND ARRAY",
+    type: "light",
+  },
+  {
+    index: "8",
+    name: "GREDDY ALGORITHM",
+    type: "dark",
+  },
+  {
+    index: "9",
+    name: "RECURSION",
+    type: "primary",
+  },
+  {
+    index: "10",
+    name: "RECURSION AND BACKTRACK",
+    type: "secondary",
+  },
+  {
+    index: "11",
+    name: "BINARY SEARCH",
+    type: "success",
+  },
+  {
+    index: "12",
+    name: "HEAPS",
+    type: "danger",
+  },
+  {
+    index: "13",
+    name: "STACKS AND QUEUE 1",
+    type: "warning",
+  },
+  {
+    index: "14",
+    name: "STACKS AND QUEUE 2",
+    type: "info",
+  },
+  {
+    index: "15",
+    name: "STRING 1",
+    type: "light",
+  },
+  {
+    index: "16",
+    name: "STRING 2",
+    type: "dark",
+  },
+  {
+    index: "17",
+    name: "BINARY TREE 1",
+    type: "primary",
+  },
+  {
+    index: "18",
+    name: "BINARY TREE 2",
+    type: "secondary",
+  },
+  {
+    index: "19",
+    name: "BINARY TREE 3",
+    type: "success",
+  },
+  {
+    index: "20",
+    name: "BINARY SEARCH TREE 1",
+    type: "warning",
+  },
+  {
+    index: "21",
+    name: "BINARY SEARCH TREE 2",
+    type: "danger",
+  },
+  {
+    index: "22",
+    name: "BINARY SEARCH TREE (MISCELLAEOUS) ",
+    type: "info",
+  },
+  {
+    index: "23",
+    name: "GRAPH 1",
+    type: "light",
+  },
+  {
+    index: "24",
+    name: "GRAPH 2",
+    type: "dark",
+  },
+  {
+    index: "25",
+    name: "DYNAMIC PROGRAMMING 1",
+    type: "primary",
+  },
+  {
+    index: "26",
+    name: "DYNAMIC PROGRAMMING 2",
+    type: "secondary",
+  },
+  {
+    index: "27",
+    name: "TRIE",
+    type: "success",
+  },
+  {
+    index: "28",
+    name: "OPERATING SYSTEM REVISION",
+    type: "warning",
+  },
+  {
+    index: "29",
+    name: "DBMS REVISION",
+    type: "info",
+  },
+  {
+    index: "30",
+    name: "COMPUTER NETWORK REVISION",
+    type: "light",
+  },
+  {
+    index: "31",
+    name: "PROJECT OVERVIEW",
+    type: "dark",
+  },
+];
 
 export default topics;
