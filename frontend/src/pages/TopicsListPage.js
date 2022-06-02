@@ -6,6 +6,7 @@ import topicsproblem from '../assets/data'
 import DummyTopic from '../components/DummyTopic';
 import Pinned from '../components/Pinned';
 import pinned from '../assets/pinned';
+
 const TopicsListPage = () => {
   return (
     <div  style={{ background: "linear-gradient(#e66465, #9198e5)" }}>
