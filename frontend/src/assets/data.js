@@ -33,7 +33,7 @@ let topicsproblem = [
     {
         'index':'7',
         'name': 'LINKED LIST AND ARRAY',
-        'type': 'light'
+        'type': 'success'
     },
     {
         'index':'8',
@@ -73,7 +73,7 @@ let topicsproblem = [
     {
         'index':'15',
         'name': 'STRING',
-        'type': 'light'
+        'type': 'secondary'
     },
     {
         'index':'16',
@@ -88,7 +88,7 @@ let topicsproblem = [
     {
         'index':'18',
         'name': 'BINARY TREE 2',
-        'type': 'secondary'
+        'type': 'dark'
     },
     {
         'index':'19',
@@ -113,7 +113,7 @@ let topicsproblem = [
     {
         'index':'23',
         'name': 'GRAPH',
-        'type': 'light'
+        'type': 'success'
     },
     {
         'index':'24',
@@ -148,7 +148,7 @@ let topicsproblem = [
     {
         'index':'30',
         'name': 'COMPUTER NETWORK REVISION',
-        'type': 'light'
+        'type': 'danger'
     },
     {
         'index':'31',
