@@ -1,6 +1,6 @@
 let problems = [
     {
-        'name': 'Level Order Traversal',
+        'name': 'Level Order Traversal 2',
         'type': 'Trees',
         'done': false,
     },
