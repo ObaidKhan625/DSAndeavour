@@ -1,28 +1,29 @@
 let problems = [
     {
-        'name': 'Arr1',
+        'name': 'Set Matrix Zeros',
         'done': false,
     },
     {
-        'name': 'Arr1',
+        'name': 'Pascals Triangle',
         'done': false,
     },
     {
-        'name': 'Arr1',
+        'name': 'Next Permutation',
         'done': false,
     },
     {
-        'name': 'Arr1',
+        'name': 'Kadane\'s Algorithm ',
         'done': false,
     },
     {
-        'name': 'Arr1',
+        'name': 'Sort an array of 0s, 1s and 2s',
         'done': false,
     },
     {
-        'name': 'Arr1',
+        'name': 'Stock Buy and Sell',
         'done': false,
-    }
+    },
+    
 ]
 
 export default problems;
