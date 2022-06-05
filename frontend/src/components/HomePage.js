@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import { Link } from 'react-router-dom';
 import home from '../img/home.png';
 import styles from '../css/Home.css';
@@ -16,6 +16,28 @@ function HomePage() {
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
     };
+    let [Notes, setNotes] = useState(0)
+
+
+  useEffect(() => {
+    getNotes()
+}, [])
+
+
+let getNotes = async () => {
+
+    let response = await fetch('http://127.0.0.1:8000/api/pinned-topics/')
+    let data = await response.json()
+    console.log(data)
+    setNotes(data)
+}
+
+
+
+
+
+
+
     return (
         
         <div className='myStyle'>

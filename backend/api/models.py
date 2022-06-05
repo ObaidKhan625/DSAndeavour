@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here. Hey
 
 class User(AbstractUser):
-	topics_status = 			models.CharField(max_length = 350, null = True, blank = True)
+	problem_status = 			models.CharField(max_length = 350, null = True, blank = True)
 	topics_pinned = 			models.CharField(max_length = 31, default = "0000000000000000000000000000000")
 	total_problems_done = 		models.PositiveIntegerField(default = 0)
 	palette = 					models.CharField(max_length = 20, null = True, blank = True)
@@ -11,8 +11,12 @@ class User(AbstractUser):
 	def __str__(self):
 		return str(self.username)
 	
+	def create(self, *args, **kwargs):
+		self.problem_status = '0'*350
+		super(User, self).create(*args, **kwargs)
+	
 	def save(self, *args, **kwargs):
-		self.topics_status = '0'*350
+		# self.problem_status = '0'*350
 		super(User, self).save(*args, **kwargs)
 
 class ProblemInfo(models.Model):

@@ -1,27 +1,21 @@
 let problems = [
     {
-        'name': 'Arr2',
-        'done': false,
+        'name': 'Rotate Matrix'
     },
     {
-        'name': 'Invert a Binary ',
-        'done': false,
+        'name': 'Merge Overlapping Subintervals'
     },
     {
-        'name': 'Find Max Height of a ',
-        'done': false,
+        'name': 'Merge two sorted Arrays without extra space'
     },
     {
-        'name': 'Level Order Traversal',
-        'done': false,
+        'name': 'Find the duplicate in an array of N+1 integers'
     },
     {
-        'name': 'Invert a Binary ',
-        'done': false,
+        'name': 'Repeat and Missing Number',
     },
     {
-        'name': 'Find Max Height of a ',
-        'done': false,
+        'name': 'Inversion of Array (Pre-req: Merge Sort)',
     }
 ]
 
