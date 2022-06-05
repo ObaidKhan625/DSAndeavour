@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Grid from '@mui/material/Grid'
-import Topic from '../components/Topic';
-import topics from '../assets/topics';
+// import Topic from '../components/Topic';
+// import topics from '../assets/topics';
 import topicsproblem from '../assets/data'
 import DummyTopic from '../components/DummyTopic';
 import Pinned from '../components/Pinned';
 import pinned from '../assets/pinned';
 
 const TopicsListPage = () => {
+  // let [pin, setPin] = useState([]);
+  // let getPinnedStatus = async() => {
+  //   let response = await fetch('http://127.0.0.1:8000/api/pinned-topics/');
+  //   let allPinnedStatus = await response.json();
+  //   var tempPin = [];
+  //   for(let i = 0; i < 31; i++) {
+  //     if(allPinnedStatus['topics_pinned'][i] === '1') {
+  //       tempPin.push(i);
+  //     }
+  //   }
+  //   setPin(tempPin);
+  //   console.log(pin);
+  // }
+  // getPinnedStatus();
   return (
     <div  style={{ background: "linear-gradient(#e66465, #9198e5)" }}>
       <h1>PINNED</h1>
