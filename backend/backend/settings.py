@@ -91,9 +91,9 @@ DATABASES = {
         'ENGINE': 'djongo',
         'NAME': 'django',
         'CLIENT': {
-            'host': "mongodb+srv://Obaid:<password>@striversheetcluster.9fkvm.mongodb.net/test",
+            'host': "mongodb+srv://Obaid:Milanor'sClusterForSS@striversheetcluster.9fkvm.mongodb.net/test",
             'username': 'Obaid',
-            'password': "",
+            'password': "Milanor'sClusterForSS",
         }
     }
 }
@@ -141,3 +141,5 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CORS_ORIGIN_ALLOW_ALL = True

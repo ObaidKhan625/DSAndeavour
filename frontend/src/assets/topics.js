@@ -1,160 +1,160 @@
-let topics = [
+let topicProblems = [
     {
         'index':'1',
         'name': 'ARRAYS 1',
-        'type': 'blue',
+        'type': 'primary',
         
     },
     {
         'index':'2',
         'name': 'ARRAYS 2',
-        'type': 'purple'
+        'type': 'secondary'
     },
     {
         'index':'3',
         'name': 'ARRAYS 3',
-        'type': 'green'
+        'type': 'success'
     },
     {
         'index':'4',
         'name': 'ARRAYS 4',
-        'type': 'red'
+        'type': 'danger'
     },
     {
         'index':'5',
-        'name': 'LINKED LIST',
-        'type': 'yellow'
+        'name': 'LINKED LIST 1',
+        'type': 'warning'
     },
     {
         'index':'6',
         'name': 'LINKED LIST 2',
-        'type': 'cyan'
+        'type': 'primary'
     },
     {
         'index':'7',
-        'name': 'LINKED LIST AND ARRAY',
-        'type': 'yellow'
+        'name': 'LINKED LIST AND ARRAYS',
+        'type': 'warning'
     },
     {
         'index':'8',
-        'name': 'GREDDY ALGORITHM',
-        'type': 'black'
+        'name': 'GREEDY ALGORITHM',
+        'type': 'dark'
     },
     {
         'index':'9',
         'name': 'RECURSION',
-        'type': 'blue'
+        'type': 'primary'
     },
     {
         'index':'10',
-        'name': 'RECURSION AND BACKTRACK',
-        'type': 'purple'
+        'name': 'RECURSION AND BACKTRACKING',
+        'type': 'secondary'
     },
     {
         'index':'11',
         'name': 'BINARY SEARCH',
-        'type': 'green'
+        'type': 'success'
     },
     {
         'index':'12',
         'name': 'HEAPS',
-        'type': 'red'
+        'type': 'danger'
     },
     {
         'index':'13',
         'name': 'STACKS AND QUEUE',
-        'type': 'yellow'
+        'type': 'warning'
     },
     {
         'index':'14',
         'name': 'STACKS AND QUEUE 2',
-        'type': 'cyan'
+        'type': 'primary'
     },
     {
         'index':'15',
         'name': 'STRING',
-        'type': 'white'
+        'type': 'light'
     },
     {
         'index':'16',
         'name': 'STRING 2',
-        'type': 'black'
+        'type': 'dark'
     },
     {
         'index':'17',
         'name': 'BINARY TREE',
-        'type': 'blue'
+        'type': 'primary'
     },
     {
         'index':'18',
         'name': 'BINARY TREE 2',
-        'type': 'purple'
+        'type': 'secondary'
     },
     {
         'index':'19',
         'name': 'BINARY TREE 3',
-        'type': 'green'
+        'type': 'success'
     },
     {
         'index':'20',
         'name': 'BINARY SEARCH TREE ',
-        'type': 'yellow'
+        'type': 'warning'
     },
     {
         'index':'21',
         'name': 'BINARY SEARCH TREE 2',
-        'type': 'red'
+        'type': 'danger'
     },
     {
         'index':'22',
         'name': 'BINARY SEARCH TREE (MISCELLAEOUS) ',
-        'type': 'cyan'
+        'type': 'primary'
     },
     {
         'index':'23',
         'name': 'GRAPH',
-        'type': 'white'
+        'type': 'light'
     },
     {
         'index':'24',
         'name': 'GRAPH 2',
-        'type': 'black'
+        'type': 'dark'
     },
     {
         'index':'25',
         'name': 'DYNAMIC PROGRAMMING',
-        'type': 'blue'
+        'type': 'primary'
     },
     {
         'index':'26',
         'name': 'DYNAMIC PROGRAMMING 2',
-        'type': 'purple'
+        'type': 'secondary'
     },
     {
         'index':'27',
         'name': 'TRIE',
-        'type': 'green'
+        'type': 'success'
     },
     {
         'index':'28',
         'name': 'OPERATING SYSTEM REVISION',
-        'type': 'yellow'
+        'type': 'warning'
     },
     {
         'index':'29',
         'name': 'DBMS REVISION',
-        'type': 'cyan'
+        'type': 'info'
     },
     {
         'index':'30',
         'name': 'COMPUTER NETWORK REVISION',
-        'type': 'white'
+        'type': 'danger'
     },
     {
         'index':'31',
         'name': 'PROJECT OVERVIEW',
-        'type': 'black'
+        'type': 'dark'
     },
 ]
 
-export default topics;
+export default topicProblems;

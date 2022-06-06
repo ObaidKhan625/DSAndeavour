@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid'
 // import Topic from '../components/Topic';
 // import topics from '../assets/topics';
-import topicsproblem from '../assets/data'
-import DummyTopic from '../components/DummyTopic';
+import topicProblems from '../assets/topics'
+import Topic from '../components/Topic';
 import Pinned from '../components/Pinned';
 import pinned from '../assets/pinned';
 
@@ -22,6 +22,19 @@ const TopicsListPage = () => {
   //   console.log(pin);
   // }
   // getPinnedStatus();
+  const [problemStatus, setProblemStatus] = useState("");
+
+  const getProblemStatus = async() => {
+    let response = await fetch('http://127.0.0.1:8000/api/problem-status/');
+    let responseJson = await response.json();
+    setProblemStatus(responseJson['problem_status']);
+    console.log(problemStatus);
+  }
+
+  useEffect(() => {
+    getProblemStatus();
+  }, [problemStatus]);
+
   return (
     <div  style={{ background: "linear-gradient(#e66465, #9198e5)" }}>
       <h1>PINNED</h1>
@@ -31,7 +44,6 @@ const TopicsListPage = () => {
            
       <Pinned key={index} pinnedtopic={pinnedtopic}/> 
    </Grid>
-
    ))
 
    }
@@ -45,10 +57,10 @@ const TopicsListPage = () => {
           </Grid>
         ))} */}
  
-         {topicsproblem.map((topic, index) => (
+         {topicProblems.map((topic, index) => (
           <Grid item xs={12} md={6} lg={4}>
            
-             <DummyTopic key={index} topic={topic}/> 
+             <Topic key={index} topic={topic} problem_status={problemStatus} /> 
           </Grid>
         ))}
       </Grid>

@@ -41,21 +41,49 @@ const TopicsQuestionsPage = () => {
     }
   }
   else if(topicName === "ARRAYS 3") {
-    for(let i = 12; i < 17; i++) {
+    for(let i = 12; i < 18; i++) {
       problems.push(allProblems[i]);
       // selectProblemStatus += allProblemStatus['problem_status'][i];
     }
   }
-  else if(topicName === "BINARY TREE 1") {
-    for(let i = 12; i < 17; i++) {
+  else if(topicName === "ARRAYS 4") {
+    for(let i = 18; i < 24; i++) {
       problems.push(allProblems[i]);
-      // selectProblemStatus += allProblemStatus['problem_status'][i];
+    }
+  }
+  else if(topicName === "LINKED LIST 1") {
+    for(let i = 24; i < 30; i++) {
+      problems.push(allProblems[i]);
+    }
+  }
+  else if(topicName === "LINKED LIST 2") {
+    for(let i = 30; i < 36; i++) {
+      problems.push(allProblems[i]);
+    }
+  }
+  else if(topicName === "LINKED LIST AND ARRAY") {
+    for(let i = 36; i < 42; i++) {
+      problems.push(allProblems[i]);
+    }
+  }
+  else if(topicName === "GREEDY ALGORITHM") {
+    for(let i = 42; i < 48; i++) {
+      problems.push(allProblems[i]);
+    }
+  }
+  else if(topicName === "RECURSION") {
+    for(let i = 48; i < 54; i++) {
+      problems.push(allProblems[i]);
+    }
+  }
+  else if(topicName === "RECURSION AND BACKTRACKING") {
+    for(let i = 54; i < 60; i++) {
+      problems.push(allProblems[i]);
     }
   }
   else {
     for(let i = 0; i < 6; i++) {
       problems.push(allProblems[i]);
-      // selectProblemStatus += allProblemStatus['problem_status'][i];
     }
   }
   return (
