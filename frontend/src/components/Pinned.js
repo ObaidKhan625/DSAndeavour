@@ -59,7 +59,6 @@ export default function Pinned(props) {
 
 
   // let {index,name,type}={props}
-  console.log({ props });
   const styleObjWhite = {
     fontSize: 25,
     color:"black",
