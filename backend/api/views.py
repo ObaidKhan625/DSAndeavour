@@ -7,13 +7,13 @@ from rest_framework.response import Response
 class PinnedTopicsViewSet(viewsets.ViewSet):
     def list(self, request):
         queryset = User.objects.all()
-        user = get_object_or_404(queryset, username = request.user.username)
+        user = get_object_or_404(queryset, username = "obaid")
         serializer = PinnedTopicsSerializer(user)
         return Response(serializer.data)
     
     def update(self, request, topicNumber, topicStatus):
         queryset = User.objects.all()
-        user = get_object_or_404(queryset, username = request.user.username)
+        user = get_object_or_404(queryset, username = "obaid")
         self.changeTopicStatus(user, topicNumber, topicStatus)
         serializer = PinnedTopicsSerializer(user)
         return Response(serializer.data)

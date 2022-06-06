@@ -12,54 +12,50 @@ import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import { Button } from "@mui/material";
 import '../css/DummyTopic.css';
 import { withTheme } from "@emotion/react";
+import axios from 'axios';
+import data from '../assets/data'
+import RemoveFavourite from "../hooks/RemoveFavourite";
+import {setFpinning,Pinning,getNotes} from "../pages/TopicsListPage";
+
 // import {AiFillPushpin}  from 'react-icons/fa';
 
+
 export default function Pinned(props) {
-
+  console.log(props)
+// console.log(props.key)
   const [AddFavourite, setAddFavorited] = useState(false)
+  let [Notes, setNotes] = useState(0)
+  let [Pinning, setPinning] = useState([])
+ 
+  let response="";
+  let data9="";
+  let arr=[];
+  let farr=[];
+  var count=0;
+  
 
+ const onClickRemoveFavorite=value=>()=>{
+         console.log(value+" DELETED")
+        axios
+        .get('http://127.0.0.1:8000/api/pinned-topics/'+value+'/'+0+'/')
+        .then(response=>{
+           console.log("SUCCESS")
+          //  updateList(list.filter(item => item.name !== name))
+          // setFpinning(Pinned.filter(value=>))
+        getNotes()
+        })
+        .catch(error=>{
+           console.log("Decline")
+        })
+                    axios.get('http://127.0.0.1:8000/api/pinned-topics/')
+                    console.log("HELLO")
+      }
 
-
-
-
-  const onClickFavorite = () => {
-                
-             setAddFavorited(false)
-              
-    // if (user.userData && !user.userData.isAuth) {
-    //     return alert('Please Log in first');
-    // }
-
-    // if (Favorited) {
-    //     //when the movie is favorited 
-    //     axios.post('/api/favorite/removeFromFavorite', variables)
-    //         .then(response => {
-    //             if (response.data.success) {
-    //                 setFavoriteNumber(FavoriteNumber - 1)
-    //                 setFavorited(!Favorited)
-    //             } else {
-    //                 alert('Failed to Remove From Favorite')
-    //             }
-    //         })
-
-    // } else {
-    //     // when the movie is not already favorited
-    //     axios.post('/api/favorite/addToFavorite', variables)
-    //         .then(response => {
-    //             if (response.data.success) {
-    //                 setFavoriteNumber(FavoriteNumber + 1)
-    //                 setFavorited(!Favorited)
-    //             } else {
-    //                 alert('Failed to Add To Favorite')
-    //             }
-    //         })
-    // }
-}
 
 
 
   // let {index,name,type}={props}
-  console.log({ props });
+  //  console.log({ props });
   const styleObjWhite = {
     fontSize: 25,
     color:"black",
@@ -88,7 +84,8 @@ export default function Pinned(props) {
               {/* <Button><AiFillPushpin />?</Button> */}
               </p>
            
-              <Button variant="outline-success" onClick={onClickFavorite} >REMOVE FROM FAVOURITE</Button>
+              <Button variant="outline-success" onClick={onClickRemoveFavorite(props.pinnedtopic.index)} >REMOVE FROM FAVOURITE</Button>
+             <Button><RemoveFavourite value={props.pinnedtopic.index}/></Button> 
             
           </MDBCardHeader>
           <MDBCardBody>

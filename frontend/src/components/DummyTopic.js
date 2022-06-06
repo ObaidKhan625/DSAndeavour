@@ -67,7 +67,7 @@ export default function Problem(props) {
 
 
   // let {index,name,type}={props}
-  console.log({ props });
+  // console.log({ props });
   const styleObjWhite = {
     fontSize: 25,
     color:"black",
