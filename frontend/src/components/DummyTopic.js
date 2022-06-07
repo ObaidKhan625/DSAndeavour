@@ -86,7 +86,8 @@ export default function Problem(props) {
           background={props.topic.type === "light" ? "mb-3" :props.topic.type}
           // background={props.topic.type==='light'?'mb-3': 'text-white mb-3'}
           className={props.topic.type === "light" ? "mb-3" : "text-white mb-3"}
-          style={{ maxWidth: "18rem" }}
+          style={{maxWidth : "20rem"}}
+      
           // path ='https://externalwebsite.com'
         >
           <MDBCardHeader>
@@ -95,7 +96,7 @@ export default function Problem(props) {
               {/* <Button><AiFillPushpin />?</Button> */}
               </p>
            
-              <Button variant="outline-success" onClick={onClickFavorite} > {!AddFavourite ? "Add to Favorites" : "Remove from favorites"}</Button>
+              {/* <Button variant="outline-success" onClick={onClickFavorite} > {!AddFavourite ? "Add to Favorites" : "Remove from favorites"}</Button> */}
             
           </MDBCardHeader>
           <MDBCardBody>
