@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Topic from "../components/Topic";
-import topics from "../assets/topics";
-import topicsproblem from "../assets/data";
+import topicsproblem from "../assets/topics";
 import DummyTopic from "../components/DummyTopic";
 import Pinned from "../components/Pinned";
 import pinned from "../assets/pinned";
@@ -35,6 +34,28 @@ const TopicsListPage = () => {
     getNotes(setFpinning(arr));
     // console.log(Fpinning)
   }, []);
+
+
+  const [problemStatus, setProblemStatus] = useState("");
+
+  const getProblemStatus = async() => {
+    let response = await fetch('http://127.0.0.1:8000/api/problem-status/');
+    let responseJson = await response.json();
+    setProblemStatus(responseJson['problem_status']);
+    console.log(problemStatus);
+  }
+
+
+
+
+  useEffect(() => {
+    getProblemStatus();
+  }, [problemStatus]);
+
+
+
+
+
 
   let getNotes = async () => {
     // window.location.reload(false);
@@ -173,7 +194,8 @@ const TopicsListPage = () => {
                   className="text-white mb-3"
                   style={{ maxWidth: "18rem" }}
                 >
-                  <DummyTopic key={index} topic={topic} />
+                  {/* <DummyTopic key={index} topic={topic} /> */}
+                  <Topic key={index} topic={topic} problem_status={problemStatus} /> 
                   <Button variant="outline-success">
                     <button
                       class="btn btn-+{topic.type}"
@@ -186,6 +208,7 @@ const TopicsListPage = () => {
                 </MDBCard>
               </Grid>
             ))}
+
           </Grid>
         </div>
       </div>

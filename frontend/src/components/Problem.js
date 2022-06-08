@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import { styled } from '@mui/material/styles';
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -45,22 +45,37 @@ const label = { inputProps: { "aria-label": "Checkbox demo" } };
 // }));
 
 const Problem = (props) => {
-  console.log({props})
   // const [expanded, setExpanded] = React.useState(false);
 
   // const handleExpandClick = () => {
   //   setExpanded(!expanded);
   // };
 
-  const [checked, setChecked] = useState(false);
+  const [currProblemStatus, setCurrProblemStatus] = useState(props.currProblemStatus);
+
+  const changeCurrProblemStatus = async (status) => {
+    console.log(status);
+    let response = await fetch(`http://127.0.0.1:8000/api/problem-status/${props.problem.index}/${status}/`);
+  }
 
   const handleChange = (event) => {
-    setChecked(event.target.checked);
+    if(event.target.checked) {
+      setCurrProblemStatus('1');
+      changeCurrProblemStatus('1');
+    }
+    else {
+      setCurrProblemStatus('0');
+      changeCurrProblemStatus('0');
+    }
   };
+
+  useEffect(() => {
+    setCurrProblemStatus(props.currProblemStatus);
+  }, [props.currProblemStatus])
 
   return (
     
-    <Card variant="outlined" style={{ background: "linear-gradient(#e66465, #9198e5)" }}>
+    <Card variant="outlined">
       <CardHeader
         // avatar={
         //   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -128,7 +143,7 @@ const Problem = (props) => {
       </CardActions>
 
       <Checkbox
-        checked={checked}
+        checked={currProblemStatus === '1'}
         onChange={handleChange}
         inputProps={{ "aria-label": "controlled" }}
       />

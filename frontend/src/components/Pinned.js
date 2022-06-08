@@ -15,9 +15,6 @@ import { withTheme } from "@emotion/react";
 import axios from "axios";
 import data from "../assets/data";
 import RemoveFavourite from "../hooks/RemoveFavourite";
-
-// import {AiFillPushpin}  from 'react-icons/fa';
-
 export default function Pinned(props) {
   // console.log(props)
   // console.log(props.key)
