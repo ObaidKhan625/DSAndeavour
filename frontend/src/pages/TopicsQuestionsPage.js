@@ -3,10 +3,16 @@ import Grid from "@mui/material/Grid";
 import Problem from "../components/Problem";
 import { useParams } from "react-router-dom";
 import allProblems from '../assets/problems';
+import Aos from "aos";
+import "aos/dist/aos.css";
 import '../css/TopicList.css';
 const TopicsQuestionsPage = () => {
+  useEffect(() => {
+    Aos.init({ duration: 2000 });
+  }, []);
   const params = useParams();
   const topicName = params.topicName;
+
   var problems = [];
 
   const [problemStatus, setProblemStatus] = useState("");
@@ -91,7 +97,9 @@ const TopicsQuestionsPage = () => {
     <Grid container spacing={4} paddingTop={5} paddingLeft={5} paddingRight={5}>
       {problems.map((problem, index) => (
         <Grid item xs={12} md={6} lg={4}>
+        <div data-aos="fade-up">
           <Problem key={index} problem={problem} currProblemStatus={problemStatus[index]}/>
+          </div>
         </Grid>
       ))}
     </Grid>

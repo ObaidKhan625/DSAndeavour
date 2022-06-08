@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import {
   MDBCard,
   MDBCardTitle,
@@ -10,58 +10,46 @@ import {
 import { Col } from "antd";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import { Button } from "@mui/material";
-import '../css/DummyTopic.css';
+import "../css/DummyTopic.css";
 import { withTheme } from "@emotion/react";
-// import {AiFillPushpin}  from 'react-icons/fa';
-
+import axios from "axios";
+import data from "../assets/data";
+import RemoveFavourite from "../hooks/RemoveFavourite";
 export default function Pinned(props) {
+  // console.log(props)
+  // console.log(props.key)
+  const [AddFavourite, setAddFavorited] = useState(false);
+  let [Notes, setNotes] = useState(0);
+  let [Pinning, setPinning] = useState([]);
 
-  const [AddFavourite, setAddFavorited] = useState(false)
+  let response = "";
+  let data9 = "";
+  let arr = [];
+  let farr = [];
+  var count = 0;
 
+  //  const onClickRemoveFavorite=value=>()=>{
+  //          console.log(value+" DELETED")
+  //         axios
+  //         .get('http://127.0.0.1:8000/api/pinned-topics/'+value+'/'+0+'/')
+  //         .then(response=>{
+  //            console.log("SUCCESS")
+  //           //  updateList(list.filter(item => item.name !== name))
+  //           // setFpinning(Pinned.filter(value=>))
 
-
-
-
-  const onClickFavorite = () => {
-                
-             setAddFavorited(false)
-              
-    // if (user.userData && !user.userData.isAuth) {
-    //     return alert('Please Log in first');
-    // }
-
-    // if (Favorited) {
-    //     //when the movie is favorited 
-    //     axios.post('/api/favorite/removeFromFavorite', variables)
-    //         .then(response => {
-    //             if (response.data.success) {
-    //                 setFavoriteNumber(FavoriteNumber - 1)
-    //                 setFavorited(!Favorited)
-    //             } else {
-    //                 alert('Failed to Remove From Favorite')
-    //             }
-    //         })
-
-    // } else {
-    //     // when the movie is not already favorited
-    //     axios.post('/api/favorite/addToFavorite', variables)
-    //         .then(response => {
-    //             if (response.data.success) {
-    //                 setFavoriteNumber(FavoriteNumber + 1)
-    //                 setFavorited(!Favorited)
-    //             } else {
-    //                 alert('Failed to Add To Favorite')
-    //             }
-    //         })
-    // }
-}
-
-
+  //         })
+  //         .catch(error=>{
+  //            console.log("Decline")
+  //         })
+  //                     axios.get('http://127.0.0.1:8000/api/pinned-topics/')
+  //                     console.log("HELLO")
+  //       }
 
   // let {index,name,type}={props}
+  //  console.log({ props });
   const styleObjWhite = {
     fontSize: 25,
-    color:"black",
+    color: "black",
     textAlign: "center",
     fontWeight: "bold",
     paddingTop: "0px",
@@ -73,22 +61,29 @@ export default function Pinned(props) {
   return (
     <div data-aos="fade-up">
       <Col lg={4} md={6} xs={24}>
-     
         <MDBCard
-          background={props.pinnedtopic.type === "light" ? "mb-3" :props.pinnedtopic.type}
+          background={
+            props.pinnedtopic.type === "light" ? "mb-3" : props.pinnedtopic.type
+          }
           // background={props.topic.type==='light'?'mb-3': 'text-white mb-3'}
-          className={props.pinnedtopic.type === "light" ? "mb-3" : "text-white mb-3"}
-          style={{ maxWidth: "18rem" }}
+          className={
+            props.pinnedtopic.type === "light" ? "mb-3" : "text-white mb-3"
+          }
+          style={{ maxWidth: "30rem" }}
           // path ='https://externalwebsite.com'
         >
           <MDBCardHeader>
-            <p style={styleObjWhite}  >
-            <Link to='/' className="link" ><i>{props.pinnedtopic.name}</i></Link>
+            <p style={styleObjWhite}>
+              <Link to="/" className="link">
+                <i>{props.pinnedtopic.name}</i>
+              </Link>
               {/* <Button><AiFillPushpin />?</Button> */}
-              </p>
-           
-              <Button variant="outline-success" onClick={onClickFavorite} >REMOVE FROM FAVOURITE</Button>
-            
+            </p>
+
+            {/* <Button variant="outline-success" onClick={onClickRemoveFavorite(props.pinnedtopic.index)} >REMOVE FROM FAVOURITE</Button> */}
+            <Button>
+              <RemoveFavourite value={props.pinnedtopic.index} />
+            </Button>
           </MDBCardHeader>
           <MDBCardBody>
             <MDBCardTitle>{props.pinnedtopic.name}</MDBCardTitle>
@@ -98,7 +93,6 @@ export default function Pinned(props) {
             </MDBCardText>
           </MDBCardBody>
         </MDBCard>
-    
       </Col>
     </div>
   );
