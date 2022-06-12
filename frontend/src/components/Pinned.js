@@ -14,7 +14,6 @@ import "../css/DummyTopic.css";
 import { withTheme } from "@emotion/react";
 import axios from "axios";
 import data from "../assets/data";
-import RemoveFavourite from "../hooks/RemoveFavourite";
 export default function Pinned(props) {
   // console.log(props)
   // console.log(props.key)
@@ -81,9 +80,9 @@ export default function Pinned(props) {
             </p>
 
             {/* <Button variant="outline-success" onClick={onClickRemoveFavorite(props.pinnedtopic.index)} >REMOVE FROM FAVOURITE</Button> */}
-            <Button>
+            {/* <Button>
               <RemoveFavourite value={props.pinnedtopic.index} />
-            </Button>
+            </Button> */}
           </MDBCardHeader>
           <MDBCardBody>
             <MDBCardTitle>{props.pinnedtopic.name}</MDBCardTitle>

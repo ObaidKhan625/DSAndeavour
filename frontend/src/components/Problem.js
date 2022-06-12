@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 // import { styled } from '@mui/material/styles';
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -7,20 +7,22 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 // import Collapse from '@mui/material/Collapse';
 // import Avatar from '@mui/material/Avatar';
-import IconButton from "@mui/material/IconButton";
+// import IconButton from "@mui/material/IconButton";
 // import Typography from '@mui/material/Typography';
 // import { red } from '@mui/material/colors';
 // import FavoriteIcon from '@mui/icons-material/Favorite';
 // import ShareIcon from '@mui/icons-material/Share';
 // import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+// import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 // import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
-
+// import Aos from "aos";
+import "aos/dist/aos.css";
 import Button from "react-bootstrap/Button";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
+import AuthContext from "../context/AuthContext";
+// import ButtonGroup from "react-bootstrap/ButtonGroup";
  
 // Be sure to include styles at some point, probably during your bootstraping
 
@@ -51,103 +53,122 @@ const Problem = (props) => {
   //   setExpanded(!expanded);
   // };
 
+  let { logoutUser, authTokens } = useContext(AuthContext);
+
   const [currProblemStatus, setCurrProblemStatus] = useState(props.currProblemStatus);
+  const [currCardColor, setCurrCardColor] = useState(props.currProblemStatus === '1' ? '#76FF7A' : 'white');
 
   const changeCurrProblemStatus = async (status) => {
     console.log(status);
-    let response = await fetch(`http://127.0.0.1:8000/api/problem-status/${props.problem.index}/${status}/`);
+    let response = await fetch(`http://127.0.0.1:8000/api/problem-status/${props.problem.index}/${status}/`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + String(authTokens.access),
+      }
+    });
+    if(response.statusText === 'Unauthorized') {
+      logoutUser();
+    }
   }
 
   const handleChange = (event) => {
     if(event.target.checked) {
       setCurrProblemStatus('1');
       changeCurrProblemStatus('1');
+      setCurrCardColor('#76FF7A');
     }
     else {
       setCurrProblemStatus('0');
       changeCurrProblemStatus('0');
+      setCurrCardColor('white');
     }
   };
 
   useEffect(() => {
     setCurrProblemStatus(props.currProblemStatus);
+    if(props.currProblemStatus ==='1') {
+      setCurrCardColor('#76FF7A');
+    }
+    else {
+      setCurrCardColor('white');
+    }
   }, [props.currProblemStatus])
 
   return (
-    
-    <Card variant="outlined">
-      <CardHeader
-        // avatar={
-        //   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-        //     R
-        //   </Avatar>
-        // }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
+    <div  data-aos="fade-up">
+      <Card variant="outlined" sx = {{ backgroundColor: currCardColor }}>
+        <CardHeader
+          // avatar={
+          //   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+          //     R
+          //   </Avatar>
+          // }
+          action={
+            <Checkbox
+              checked={currProblemStatus === '1'}
+              onChange={handleChange}
+              inputProps={{ "aria-label": "controlled" }}
+              color='success'
+              
+            />
+          }
+          title={props.problem.name}
+          sx = {{textAlign: 'center'}}
+          // subheader="September 14, 2016"
+        />
+        {/* <CardMedia
+          component="img"
+          height="194"
+          image="https://mui.com/static/images/cards/paella.jpg"
+          alt="Paella dish"
+        /> */}
+        <CardContent>
+          {/* <Typography variant="body2" color="text.secondary">
+            This impressive paella is a perfect party dish and a fun meal to cook
+            together with your guests. Add 1 cup of frozen peas along with the mussels,
+            if you like.
+          </Typography> */}
+        </CardContent>
+        <CardActions disableSpacing style={{justifyContent:'center'}}>
+          {/* <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
           </IconButton>
-        }
-        title={props.problem.name}
-        // subheader="September 14, 2016"
-      />
-      {/* <CardMedia
-        component="img"
-        height="194"
-        image="https://mui.com/static/images/cards/paella.jpg"
-        alt="Paella dish"
-      /> */}
-      <CardContent>
-        {/* <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like.
-        </Typography> */}
-      </CardContent>
-      <CardActions disableSpacing>
-        {/* <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton> */}
+          <IconButton aria-label="share">
+            <ShareIcon />
+          </IconButton> */}
 
-        <Stack
-          direction="row"
-          divider={<Divider orientation="vertical" flexItem />}
-          spacing={2}
-        >
-          <Button  variant="primary"><InfoIcon   sx={{ fontSize: 30 }}/></Button>
-          <Button variant="success"><b>Link 1</b></Button>
-          {/* <Button variant="outline-secondary">Secondary</Button>{' '}
-  <Button variant="outline-success">Success</Button>{' '} */}
-          <Button variant="success"><b>Link 2</b></Button>
-                       
-            <Button
-                    variant="danger"                           
-                    // href={`https://www.youtube.com/watch?v=${video}`}
-                    href="https://www.youtube.com/watch?v=M65xBewcqcI&list=PLgUwDviBIf0rPG3Ictpu74YWBQ1CaBkm2&index=8"
-                  >
-                <YouTubeIcon   sx={{ fontSize: 30 }}/> 
-                  </Button> 
-                  
-        </Stack>
+          <Stack
+            direction="row"
+            divider={<Divider orientation="vertical" flexItem />}
+            spacing={2}
+          >
+            <Button variant="primary"><InfoIcon sx={{ fontSize: 30 }}/></Button>
+            <Button variant="success"><b>Link 1</b></Button>
+            {/* <Button variant="outline-secondary">Secondary</Button>{' '}
+            <Button variant="outline-success">Success</Button>{' '} */}
+            <Button variant="success"><b>Link 2</b></Button>
+            <Button variant="danger"                           
+            // href={`https://www.youtube.com/watch?v=${video}`}
+            href="https://www.youtube.com/watch?v=M65xBewcqcI&list=PLgUwDviBIf0rPG3Ictpu74YWBQ1CaBkm2&index=8"
+            >
+            <YouTubeIcon sx={{ fontSize: 30 }}/> 
+            </Button> 
+          </Stack>
 
-        {/* <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore> */}
-      </CardActions>
+          {/* <ExpandMore
+            expand={expanded}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </ExpandMore> */}
+        </CardActions>
 
-      <Checkbox
-        checked={currProblemStatus === '1'}
-        onChange={handleChange}
-        inputProps={{ "aria-label": "controlled" }}
-      />
-    </Card>
+        
+      </Card>
+    </div>
   );
 };
 

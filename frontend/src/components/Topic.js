@@ -9,10 +9,21 @@ import {
 } from "mdb-react-ui-kit";
 import { Col } from "antd";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
-import { Button } from "@mui/material";
 import '../css/DummyTopic.css';
 import problems from '../assets/problems';
-// import {AiFillPushpin}  from 'react-icons/fa';
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import Stack from "@mui/material/Stack";
+import Divider from "@mui/material/Divider";
+import Checkbox from "@mui/material/Checkbox";
+import "aos/dist/aos.css";
+import Button from "react-bootstrap/Button";
+import YouTubeIcon from "@mui/icons-material/YouTube";
+import InfoIcon from '@mui/icons-material/Info';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import BookmarkRemoveIcon from '@mui/icons-material/BookmarkRemove';
 
 export default function Problem(props) {
 
@@ -28,36 +39,6 @@ export default function Problem(props) {
       console.log("NO")
       setAddFavorited(false)
     }
-             
-              
-    // if (user.userData && !user.userData.isAuth) {
-    //     return alert('Please Log in first');
-    // }
-
-    // if (Favorited) {
-    //     //when the movie is favorited 
-    //     axios.post('/api/favorite/removeFromFavorite', variables)
-    //         .then(response => {
-    //             if (response.data.success) {
-    //                 setFavoriteNumber(FavoriteNumber - 1)
-    //                 setFavorited(!Favorited)
-    //             } else {
-    //                 alert('Failed to Remove From Favorite')
-    //             }
-    //         })
-
-    // } else {
-    //     // when the movie is not already favorited
-    //     axios.post('/api/favorite/addToFavorite', variables)
-    //         .then(response => {
-    //             if (response.data.success) {
-    //                 setFavoriteNumber(FavoriteNumber + 1)
-    //                 setFavorited(!Favorited)
-    //             } else {
-    //                 alert('Failed to Add To Favorite')
-    //             }
-    //         })
-    // }
   }
 
   var upNextProblemIndex = -1;
@@ -151,7 +132,19 @@ export default function Problem(props) {
   };
   return (
     <div data-aos="fade-up">
-      <Col lg={4} md={6} xs={24}>
+      <Card variant="outlined">
+        <Link to={`/topics/${props.topic.name}`} className="link" >
+          <CardHeader
+            title={props.topic.name}
+            sx = {{textAlign: 'center', color: 'black'}}
+          />
+        </Link>
+        <CardContent>
+          <b>Up Next</b><br />
+          {upNextProblemIndex === -1 ? "All Done!!!" : problems[upNextProblemIndex].name}
+        </CardContent>
+      </Card>
+      {/* <Col lg={4} md={6} xs={24}>
         <MDBCard
           background={props.topic.type === "light" ? "mb-3" :props.topic.type}
           className={props.topic.type === "light" ? "mb-3" : "text-white mb-3"}
@@ -161,7 +154,6 @@ export default function Problem(props) {
             <p style={styleObjWhite}  >
               <Link to={`/topics/${props.topic.name}`} className="link" ><i>{props.topic.name}</i></Link>
             </p>
-            <Button variant="outline-success" onClick={onClickFavorite} > {!AddFavourite ? "Add to Favorites" : "Remove from favorites"}</Button>
           </MDBCardHeader>
           <MDBCardBody>
             <MDBCardTitle>Up Next</MDBCardTitle>
@@ -170,7 +162,7 @@ export default function Problem(props) {
             </MDBCardText>
           </MDBCardBody>
         </MDBCard>
-      </Col>
+      </Col> */}
     </div>
   );
 }
