@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Topic from "../components/Topic";
 import topicsproblem from "../assets/topics";
-import DummyTopic from "../components/DummyTopic";
 import Pinned from "../components/Pinned";
 import pinned from "../assets/pinned";
 import data from "../assets/data";
@@ -19,6 +18,8 @@ import {
 } from "mdb-react-ui-kit";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import AuthContext from "../context/AuthContext";
+
 // import SearchBar from "../components/SearchBar";
 // console.log(data)
 const TopicsListPage = () => {
@@ -28,6 +29,8 @@ const TopicsListPage = () => {
   let response = "";
   let data9 = "";
   let arr = [];
+
+  let { logoutUser, authTokens } = useContext(AuthContext);
 
   useEffect(() => {
     Aos.init({ duration: 2000 });
@@ -39,39 +42,44 @@ const TopicsListPage = () => {
   const [problemStatus, setProblemStatus] = useState("");
 
   const getProblemStatus = async() => {
-    let response = await fetch('http://127.0.0.1:8000/api/problem-status/');
+    let response = await fetch('http://127.0.0.1:8000/api/problem-status/', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + String(authTokens.access),
+      }
+    });
+    if(response.statusText === 'Unauthorized') {
+      logoutUser();
+    }
     let responseJson = await response.json();
     setProblemStatus(responseJson['problem_status']);
-    console.log(problemStatus);
   }
-
-
-
-
   useEffect(() => {
     getProblemStatus();
   }, [problemStatus]);
 
-
-
-
-
-
   let getNotes = async () => {
     // window.location.reload(false);
-    response = await fetch("http://127.0.0.1:8000/api/pinned-topics/"); //FETCH THE STRING 0 AND 1
+    let response = await fetch('http://127.0.0.1:8000/api/pinned-topics/', { //FETCH THE STRING 0 AND 1
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + String(authTokens.access),
+      }
+    });
+    if(response.statusText === 'Unauthorized') {
+      logoutUser();
+    }
     data9 = await response.json();
     // console.log(data)
     setNotes(data9); //SETNOTES SAVES 10000000101000000001
-
-    console.log(data9);
 
     arr = []; //EMPTY ARRAY IS INITALISED TO STORE ALLL 1 THEN WILL PUT IT IN Fpinning
     //  console.log(data)
     const data2 = JSON.stringify(data9); //CONVERT IT INTO STRING
     let data1 = data2.substring(18, 50); //AVOID ADDITION OF ALL CHARACTER LIKE BRACKET AND ALL ,
 
-    console.log(data1 + " " + data1.length);
     for (var i = 0; i < data1.length; i++) {
       // console.log(data1.charAt(i)+" "+i+" "+data1.length);
       if (data1.charAt(i) == "1") {
@@ -79,7 +87,6 @@ const TopicsListPage = () => {
       }
     }
     setPinning(arr); //ISKO ITERATE KAREGA ME SAB ONES ISME HAI
-    console.log(arr);
 
     for (var i = 0; i < arr.length; i++) {
       // var c=arr[i];
@@ -95,51 +102,51 @@ const TopicsListPage = () => {
     // setFpinning(farr)
   };
 
-  const onClickRemoveFavorite = (value) => () => {
-    console.log(value + " DELETED");
-    axios
-      .get("http://127.0.0.1:8000/api/pinned-topics/" + value + "/" + 0 + "/")
+  // const onClickRemoveFavorite = (value) => () => {
+  //   console.log(value + " DELETED");
+  //   axios
+  //     .get("http://127.0.0.1:8000/api/pinned-topics/" + value + "/" + 0 + "/")
 
-      .then((response) => {
-        console.log("SUCCESS");
-        alert("REMOVED FROM PINNED SECTION");
-        getNotes();
-        //  updateList(list.filter(item => item.name !== name))
-        // setFpinning(Pinned.filter(value=>))
-      })
-      .catch((error) => {
-        console.log("Decline");
-        alert("DECLINED ERROR IN PINNED SECTION");
-      });
-    axios.get("http://127.0.0.1:8000/api/pinned-topics/");
-    console.log("HELLO");
+  //     .then((response) => {
+  //       console.log("SUCCESS");
+  //       alert("REMOVED FROM PINNED SECTION");
+  //       getNotes();
+  //       //  updateList(list.filter(item => item.name !== name))
+  //       // setFpinning(Pinned.filter(value=>))
+  //     })
+  //     .catch((error) => {
+  //       console.log("Decline");
+  //       alert("DECLINED ERROR IN PINNED SECTION");
+  //     });
+  //   axios.get("http://127.0.0.1:8000/api/pinned-topics/");
+  //   console.log("HELLO");
 
-    //  const newNotes = Fpinning.filter((note) => note.value !== value);
-    setFpinning([]);
-  };
+  //   //  const newNotes = Fpinning.filter((note) => note.value !== value);
+  //   setFpinning([]);
+  // };
 
-  const onClickAddFavorite = (value) => () => {
-    console.log(value + " ADDED");
-    axios
-      .get("http://127.0.0.1:8000/api/pinned-topics/" + value + "/" + 1 + "/")
+  // const onClickAddFavorite = (value) => () => {
+  //   console.log(value + " ADDED");
+  //   axios
+  //     .get("http://127.0.0.1:8000/api/pinned-topics/" + value + "/" + 1 + "/")
 
-      .then((response) => {
-        console.log("SUCCESS");
-        alert("ADDED SUCCESSFULLY");
-        getNotes();
-        //  updateList(list.filter(item => item.name !== name))
-        // setFpinning(Pinned.filter(value=>))
-      })
-      .catch((error) => {
-        console.log("Decline");
-        alert("DECLINED ERROR IN ADD SECTION");
-      });
-    axios.get("http://127.0.0.1:8000/api/pinned-topics/");
-    console.log("HELLO");
+  //     .then((response) => {
+  //       console.log("SUCCESS");
+  //       alert("ADDED SUCCESSFULLY");
+  //       getNotes();
+  //       //  updateList(list.filter(item => item.name !== name))
+  //       // setFpinning(Pinned.filter(value=>))
+  //     })
+  //     .catch((error) => {
+  //       console.log("Decline");
+  //       alert("DECLINED ERROR IN ADD SECTION");
+  //     });
+  //   axios.get("http://127.0.0.1:8000/api/pinned-topics/");
+  //   console.log("HELLO");
 
-    //  const newNotes = Fpinning.filter((note) => note.value !== value);
-    setFpinning([]);
-  };
+  //   //  const newNotes = Fpinning.filter((note) => note.value !== value);
+  //   setFpinning([]);
+  // };
 
   return (
     <div style={{ background: "linear-gradient(#e66465, #9198e5)" }}>
@@ -168,7 +175,7 @@ const TopicsListPage = () => {
                 />
                 <button
                   class="btn btn-+{pinnedtopic.type}"
-                  onClick={onClickRemoveFavorite(pinnedtopic.index)}
+                  // onClick={onClickRemoveFavorite(pinnedtopic.index)}
                 >
                   <DeleteOutlineOutlinedIcon />{" "}
                 </button>
@@ -180,35 +187,21 @@ const TopicsListPage = () => {
         <div data-aos="fade-up">
           <h1>TOPICS</h1>
           {/* <SearchBar/> */}
-          <Grid
-            container
-            spacing={2}
-            paddingTop={5}
-            paddingLeft={5}
-            paddingRight={5}
-          >
+          <Grid container spacing={4} paddingTop={5} paddingLeft={5} paddingRight={5}>
             {topicsproblem.map((topic, index) => (
               <Grid item xs={12} md={6} lg={4}>
-                <MDBCard
-                  background={topic.type}
-                  className="text-white mb-3"
-                  style={{ maxWidth: "18rem" }}
-                >
-                  {/* <DummyTopic key={index} topic={topic} /> */}
                   <Topic key={index} topic={topic} problem_status={problemStatus} /> 
                   <Button variant="outline-success">
                     <button
                       class="btn btn-+{topic.type}"
-                      onClick={onClickAddFavorite(topic.index)}
+                      // onClick={onClickAddFavorite(topic.index)}
                     >
                       <AddBoxIcon />
                     </button>
-                    {/* "btn btn-success" */}
+                    "btn btn-success"
                   </Button>
-                </MDBCard>
               </Grid>
             ))}
-
           </Grid>
         </div>
       </div>

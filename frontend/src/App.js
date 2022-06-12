@@ -7,17 +7,27 @@ import './App.css';
 import Test from './pages/Test';
 import TopicsListPage from './pages/TopicsListPage';
 import TopicsQuestionsPage from './pages/TopicsQuestionsPage';
-import HomePage from "./components/HomePage";
+import HomePage from './components/HomePage';
+import LoginPage from './pages/LoginPage';
+import PrivateRoutes from './utils/PrivateRoutes';
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   return (
     <>
     <Router>
+      <AuthProvider>
+        <Routes>
+          <Route element = {<PrivateRoutes />} >
+            <Route path = "/" element={<HomePage />} exact/>
+            <Route path = "/topics" element = {<TopicsListPage />} exact/>
+            <Route path = "/topics/:topicName" element = {<TopicsQuestionsPage />} />
+          </Route>
+          <Route path = "/login" element = {<LoginPage />} exact/>
+        </Routes>
+      </AuthProvider>
       <Routes>
-        <Route path ='/' element ={<HomePage/>}/>
-        <Route path = '/topics' element = {<TopicsListPage />} />
-        <Route path = "/topics/:topicName" element = {<TopicsQuestionsPage />}/>
-        <Route path = "/test" element = {<Test />}/>
+        <Route path = "/test" element = {<Test />} />
       </Routes>
     </Router>
     </>
