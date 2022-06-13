@@ -1,160 +1,160 @@
-let topicProblems = [
+let topics = [
     {
-        'index':'1',
+        'index':'0',
         'name': 'ARRAYS 1',
         'type': 'primary',
         
     },
     {
-        'index':'2',
+        'index':'1',
         'name': 'ARRAYS 2',
         'type': 'secondary'
     },
     {
-        'index':'3',
+        'index':'2',
         'name': 'ARRAYS 3',
         'type': 'success'
     },
     {
-        'index':'4',
+        'index':'3',
         'name': 'ARRAYS 4',
         'type': 'danger'
     },
     {
-        'index':'5',
+        'index':'4',
         'name': 'LINKED LIST 1',
         'type': 'warning'
     },
     {
-        'index':'6',
+        'index':'5',
         'name': 'LINKED LIST 2',
         'type': 'primary'
     },
     {
-        'index':'7',
+        'index':'6',
         'name': 'LINKED LIST AND ARRAYS',
         'type': 'warning'
     },
     {
-        'index':'8',
+        'index':'7',
         'name': 'GREEDY ALGORITHM',
         'type': 'dark'
     },
     {
-        'index':'9',
+        'index':'8',
         'name': 'RECURSION',
         'type': 'primary'
     },
     {
-        'index':'10',
+        'index':'9',
         'name': 'RECURSION AND BACKTRACKING',
         'type': 'secondary'
     },
     {
-        'index':'11',
+        'index':'10',
         'name': 'BINARY SEARCH',
         'type': 'success'
     },
     {
-        'index':'12',
+        'index':'11',
         'name': 'HEAPS',
         'type': 'danger'
     },
     {
-        'index':'13',
+        'index':'12',
         'name': 'STACKS AND QUEUE',
         'type': 'warning'
     },
     {
-        'index':'14',
+        'index':'13',
         'name': 'STACKS AND QUEUE 2',
         'type': 'primary'
     },
     {
-        'index':'15',
+        'index':'14',
         'name': 'STRING',
         'type': 'light'
     },
     {
-        'index':'16',
+        'index':'15',
         'name': 'STRING 2',
         'type': 'dark'
     },
     {
-        'index':'17',
+        'index':'16',
         'name': 'BINARY TREE',
         'type': 'primary'
     },
     {
-        'index':'18',
+        'index':'17',
         'name': 'BINARY TREE 2',
         'type': 'secondary'
     },
     {
-        'index':'19',
+        'index':'18',
         'name': 'BINARY TREE 3',
         'type': 'success'
     },
     {
-        'index':'20',
+        'index':'19',
         'name': 'BINARY SEARCH TREE ',
         'type': 'warning'
     },
     {
-        'index':'21',
+        'index':'20',
         'name': 'BINARY SEARCH TREE 2',
         'type': 'danger'
     },
     {
-        'index':'22',
+        'index':'21',
         'name': 'BINARY SEARCH TREE (MISCELLAEOUS) ',
         'type': 'primary'
     },
     {
-        'index':'23',
+        'index':'22',
         'name': 'GRAPH',
         'type': 'light'
     },
     {
-        'index':'24',
+        'index':'23',
         'name': 'GRAPH 2',
         'type': 'dark'
     },
     {
-        'index':'25',
+        'index':'24',
         'name': 'DYNAMIC PROGRAMMING',
         'type': 'primary'
     },
     {
-        'index':'26',
+        'index':'25',
         'name': 'DYNAMIC PROGRAMMING 2',
         'type': 'secondary'
     },
     {
-        'index':'27',
+        'index':'26',
         'name': 'TRIE',
         'type': 'success'
     },
     {
-        'index':'28',
+        'index':'27',
         'name': 'OPERATING SYSTEM REVISION',
         'type': 'warning'
     },
     {
-        'index':'29',
+        'index':'28',
         'name': 'DBMS REVISION',
         'type': 'info'
     },
     {
-        'index':'30',
+        'index':'29',
         'name': 'COMPUTER NETWORK REVISION',
         'type': 'danger'
     },
     {
-        'index':'31',
+        'index':'30',
         'name': 'PROJECT OVERVIEW',
         'type': 'dark'
     },
 ]
 
-export default topicProblems;
+export default topics;
