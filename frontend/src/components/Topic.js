@@ -32,11 +32,9 @@ export default function Problem(props) {
   const onClickFavorite = () => {
     if(!AddFavourite)
     {
-      console.log("YES")
       setAddFavorited(true)
     }
     else{
-      console.log("NO")
       setAddFavorited(false)
     }
   }
