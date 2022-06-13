@@ -5,6 +5,7 @@ import CardHeader from "@mui/material/CardHeader";
 // import CardMedia from '@mui/material/CardMedia';
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
+import swal from 'sweetalert';
 // import Collapse from '@mui/material/Collapse';
 // import Avatar from '@mui/material/Avatar';
 // import IconButton from "@mui/material/IconButton";
@@ -77,11 +78,29 @@ const Problem = (props) => {
       setCurrProblemStatus('1');
       changeCurrProblemStatus('1');
       setCurrCardColor('#76FF7A');
+      swal({
+        title: "Are you sure?",
+        text: "Are you sure that you want to leave this page?",
+        icon: "success",
+        dangerMode: true,
+        button:false,
+        timer:800
+      })
     }
     else {
       setCurrProblemStatus('0');
       changeCurrProblemStatus('0');
       setCurrCardColor('white');
+      swal({
+        title: "Are you sure?",
+        text: "Are you sure that you want to leave this page?",
+        icon: "error",
+        dangerMode: true,
+        button:false,
+        timer:800
+      })
+
+
     }
   };
 
