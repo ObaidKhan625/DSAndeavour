@@ -8,8 +8,11 @@ import "aos/dist/aos.css";
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 import BookmarkRemoveIcon from '@mui/icons-material/BookmarkRemove';
 import AuthContext from "../context/AuthContext";
+import TopicsQuestionsPage from "./TopicsQuestionsPage";
+ import {Problem} from '../components/Problem';
 
-const TopicsListPage = () => {
+
+const TopicsListPage = (props) => {
 
   let { logoutUser, authTokens } = useContext(AuthContext);
 
@@ -17,11 +20,13 @@ const TopicsListPage = () => {
     Aos.init({ duration: 2000 });
   }, []);
 
-
+  // console.log(props)
   const [problemStatus, setProblemStatus] = useState("");
   const [pinnedTopics, setPinnedTopics] = useState("");
   const [pinnedTopicsList, setPinnedTopicsList] = useState([]);
   var isloading = false;
+
+
 
   const pinTopic = async(topic) => {
     if(pinnedTopics[topic.index - '0'] === '1') {
@@ -74,6 +79,7 @@ const TopicsListPage = () => {
     getProblemStatus();
   }, [problemStatus]);
 
+
   const getPinnedTopics = async () => {
     // window.location.reload(false);
     let response = await fetch('http://127.0.0.1:8000/api/pinned-topics/', { //FETCH THE STRING 0 AND 1
@@ -101,8 +107,15 @@ const TopicsListPage = () => {
     getPinnedTopics();
   }, [pinnedTopics]);
 
+var countdone=0;
+
+function getCount(count){
+countdone=count;
+}
+
+
   return (
-    <div style={{ background: "linear-gradient(#e66465, #9198e5)" }}>
+    <div >
       <div data-aos="fade-up">
         <div>
           <h1>PINNED</h1>
@@ -111,10 +124,11 @@ const TopicsListPage = () => {
               <Grid item xs={12} md={6} lg={4}>
                 <Topic key={index} topic={topic} problem_status={problemStatus} />
                 <Button variant="outline-success" onClick={(e) => unpinTopic(topic)}>
+                <div>{countdone}</div>
                   <BookmarkRemoveIcon />
                 </Button> 
               </Grid>
-              
+           
             ))}
           </Grid>
           <h1>TOPICS</h1>
@@ -123,6 +137,7 @@ const TopicsListPage = () => {
               <Grid item xs={12} md={6} lg={4}>
                 <Topic key={index} topic={topic} problem_status={problemStatus} /> 
                 <Button variant="outline-success" onClick={(e) => pinTopic(topic)}>
+                <div>{countdone}</div>
                   <BookmarkAddIcon />
                 </Button>
               </Grid>
@@ -130,6 +145,8 @@ const TopicsListPage = () => {
           </Grid>
         </div>
       </div>
+                   
+            
     </div>
   );
 };

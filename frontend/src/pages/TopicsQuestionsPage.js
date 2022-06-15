@@ -7,17 +7,23 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 import '../css/TopicList.css';
 import AuthContext from "../context/AuthContext";
+import TopicsListPage from "./TopicsListPage";
 
 const TopicsQuestionsPage = () => {
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
   const params = useParams();
+  // console.log(JSON.stringify(params))
+
   const topicName = params.topicName;
 
   var problems = [];
+  
 
   const [problemStatus, setProblemStatus] = useState("");
+  const [solve,setSolve]=useState(0)
+
 
   let { logoutUser, authTokens } = useContext(AuthContext);
   
@@ -33,6 +39,7 @@ const TopicsQuestionsPage = () => {
       logoutUser();
     }
     let responseJson = await response.json();
+    // console.log(responseJson)
     if(topicName === "ARRAYS 1") {
       let tempProblemStatus = "";
       for(let i = 0; i < 6; i++) {
@@ -51,11 +58,16 @@ const TopicsQuestionsPage = () => {
 
   useEffect(() => {
     getProblemStatus()
-  }, []);
-
+  }, [count]);
+  var count=0;
+ 
   if(topicName === "ARRAYS 1") {
     for(let i = 0; i < 6; i++) {
       problems.push(allProblems[i]);
+      if(problemStatus[i]==1)
+      {
+       count++;
+      }
       // selectProblemStatus += allProblemStatus['problem_status'][i];
     }
     // console.log(problemStatus[problems[0]['topic_index']]);
@@ -112,17 +124,31 @@ const TopicsQuestionsPage = () => {
       problems.push(allProblems[i]);
     }
   }
+  console.log(count)
+
+  // for(let i=0;i<problemStatus.length;i++)
+  // {
+  //       if(problemStatus[i]==1)
+  //       {
+  //         setSolve(solve + 1);
+  //       }
+  // }
+// console.log(problemStatus)
+// console.log(problemStatus.length)
+// console.log(solve)
   return (
     <div>
     <Grid container spacing={4} paddingTop={5} paddingLeft={5} paddingRight={5}>
       {problems.map((problem, index) => (
         <Grid item xs={12} md={6} lg={4}>
         <div data-aos="fade-up">
-          <Problem key={index} problem={problem} currProblemStatus={problemStatus[index]}/>
+          <Problem key={index} problem={problem} currProblemStatus={problemStatus[index]} count={problemStatus}/>
           </div>
+         
         </Grid>
       ))}
     </Grid>
+{/* <TopicsListPage getCount={count}/> */}
     </div>
   );
 };

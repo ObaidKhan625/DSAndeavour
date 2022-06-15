@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import AuthContext from '../context/AuthContext';
+import { FaGoogle,FaUser,FaLock } from 'react-icons/fa';
 
 const LoginPage = () => {
   let { loginUser } = useContext(AuthContext);
@@ -17,21 +18,22 @@ const LoginPage = () => {
 &nbsp;
 &nbsp;
 <div className="form-group">
-    <label>Username</label>
-    <input type="text" name='username' className="form-control" placeholder="Enter email" />
+    <label>Username <FaUser/></label>
+    <input type="text" name='username' className="form-control" placeholder="Enter email" required/>
 </div>
 &nbsp;
 &nbsp;
 <div className="form-group">
-    <label>Password</label>
-    <input type="password" name='password' className="form-control" placeholder="Enter password" />
+    <label>Password <FaLock/> </label>
+    <input type="password" name='password' className="form-control" placeholder="Enter password" required />
 </div>
 &nbsp;
 &nbsp;
 
  <button type="submit" className="btn btn-dark btn-lg btn-block">Sign in</button> 
  <p className="forgot-password text-right">
-  <b>SIGN IN WITH GOOGLE</b>
+  <b>SIGN IN WITH GOOGLE &nbsp; <FaGoogle/> </b>
+  
 </p>
 </form> 
 
