@@ -6,11 +6,12 @@ import AuthContext from '../context/AuthContext';
 
 
 function HomePage() {
-  let { user, logoutUser } = useContext(AuthContext);
+  // let { user, logoutUser } = useContext(AuthContext);
+  let { logoutUser } = useContext(AuthContext);
   return (
     <div className='myStyle'>
-      { user && <p>Hey, {user.name}</p> }
-      { user && <p onClick={logoutUser}>Logout</p>}
+      {/* { user && <p>Hey, {user.name}</p> }
+      { user && <p onClick={logoutUser}>Logout</p>} */}
       <b>WELCOME TO STRIVER SHEET</b>
       <Button>
         <Link to="/topics">GET STARTED</Link>

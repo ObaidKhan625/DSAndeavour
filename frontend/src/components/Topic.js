@@ -1,78 +1,118 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from 'react-router-dom';
-import {
-  MDBCard,
-  MDBCardTitle,
-  MDBCardText,
-  MDBCardBody,
-  MDBCardHeader,
-} from "mdb-react-ui-kit";
-import { Col } from "antd";
+import { Button } from "@mui/material";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import '../css/DummyTopic.css';
 import problems from '../assets/problems';
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import Stack from "@mui/material/Stack";
-import Divider from "@mui/material/Divider";
-import Checkbox from "@mui/material/Checkbox";
 import "aos/dist/aos.css";
-import Button from "react-bootstrap/Button";
-import YouTubeIcon from "@mui/icons-material/YouTube";
-import InfoIcon from '@mui/icons-material/Info';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
+import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 import BookmarkRemoveIcon from '@mui/icons-material/BookmarkRemove';
+import IconButton from '@mui/material/IconButton';
+import Font from 'react-font';
+import AuthContext from "../context/AuthContext";
+import Typography from '@mui/material/Typography';
 
 export default function Problem(props) {
 
-  const [AddFavourite, setAddFavorited] = useState(false);
+  let { logoutUser, accessToken } = useContext(AuthContext);
 
-  const onClickFavorite = () => {
-    if(!AddFavourite)
-    {
-      setAddFavorited(true)
+  const [currPinnedStatus, setCurrPinnedStatus] = useState(props.currPinnedStatus);
+  
+  const pinTopic = async() => {
+    if(currPinnedStatus === '1') {
+      return;
     }
-    else{
-      setAddFavorited(false)
-    }
-  }
+    let response = await fetch(`http://127.0.0.1:8000/api/pinned-topics/${props.topic.index}/1/`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + String(accessToken),
+      }
+    });
+    // let responseJson = await response.json();
+    // setPinnedTopics(responseJson['topics_pinned']);
+    setCurrPinnedStatus('1');
+    await props.getPinnedTopics();
+  };
+
+  const unpinTopic  = async() => {
+    let response = await fetch(`http://127.0.0.1:8000/api/pinned-topics/${props.topic.index}/0/`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + String(accessToken),
+      }
+    });
+    // let responseJson = await response.json();
+    // setPinnedTopics(responseJson['topics_pinned']);
+    setCurrPinnedStatus('0');
+    await props.getPinnedTopics();
+  };
+
+  useEffect(() => {
+    // console.log(props.topic);
+    setCurrPinnedStatus(props.currPinnedStatus);
+  }, [props.currPinnedStatus])
 
   var upNextProblemIndex = -1;
+  var totalDone = 0;
+  var totalProblems = 0;
   if(props.topic.name === "ARRAYS 1") {
     for(let i = 0; i < 6; i++) {
-      if(props.problem_status[i] === '0') {
-        upNextProblemIndex = i; break;
+      if(props.problem_status[i] === '1') {
+        totalDone++;
       }
+      if(props.problem_status[i] === '0' && upNextProblemIndex === -1) {
+        upNextProblemIndex = i;
+      }
+      totalProblems++;
     }
   }
   else if(props.topic.name === "ARRAYS 2") {
     for(let i = 6; i < 12; i++) {
-      if(props.problem_status[i] === '0') {
-        upNextProblemIndex = i; break;
+      if(props.problem_status[i] === '1') {
+        totalDone++;
       }
+      if(props.problem_status[i] === '0' && upNextProblemIndex === -1) {
+        upNextProblemIndex = i;
+      }
+      totalProblems++;
     }
   }
   else if(props.topic.name === "ARRAYS 3") {
     for(let i = 12; i < 18; i++) {
-      if(props.problem_status[i] === '0') {
-        upNextProblemIndex = i; break;
+      if(props.problem_status[i] === '1') {
+        totalDone++;
       }
+      if(props.problem_status[i] === '0' && upNextProblemIndex === -1) {
+        upNextProblemIndex = i;
+      }
+      totalProblems++;
     }
   }
   else if(props.topic.name === "ARRAYS 4") {
     for(let i = 18; i < 24; i++) {
-      if(props.problem_status[i] === '0') {
-        upNextProblemIndex = i; break;
+      if(props.problem_status[i] === '1') {
+        totalDone++;
       }
+      if(props.problem_status[i] === '0' && upNextProblemIndex === -1) {
+        upNextProblemIndex = i;
+      }
+      totalProblems++;
     }
   }
   else if(props.topic.name === "LINKED LIST 1") {
     for(let i = 24; i < 30; i++) {
-      if(props.problem_status[i] === '0') {
-        upNextProblemIndex = i; break;
+      if(props.problem_status[i] === '1') {
+        totalDone++;
       }
+      if(props.problem_status[i] === '0' && upNextProblemIndex === -1) {
+        upNextProblemIndex = i;
+      }
+      totalProblems++;
     }
   }
   else if(props.topic.name === "LINKED LIST 2") {
@@ -84,83 +124,91 @@ export default function Problem(props) {
   }
   else if(props.topic.name === "LINKED LIST AND ARRAYS") {
     for(let i = 36; i < 42; i++) {
-      if(props.problem_status[i] === '0') {
-        upNextProblemIndex = i; break;
+      if(props.problem_status[i] === '1') {
+        totalDone++;
       }
+      if(props.problem_status[i] === '0' && upNextProblemIndex === -1) {
+        upNextProblemIndex = i;
+      }
+      totalProblems++;
     }
   }
   else if(props.topic.name === "GREEDY ALGORITHM") {
     for(let i = 42; i < 48; i++) {
-      if(props.problem_status[i] === '0') {
-        upNextProblemIndex = i; break;
+      if(props.problem_status[i] === '1') {
+        totalDone++;
       }
+      if(props.problem_status[i] === '0' && upNextProblemIndex === -1) {
+        upNextProblemIndex = i;
+      }
+      totalProblems++;
     }
   }
   else if(props.topic.name === "RECURSION") {
     for(let i = 48; i < 54; i++) {
-      if(props.problem_status[i] === '0') {
-        upNextProblemIndex = i; break;
+      if(props.problem_status[i] === '1') {
+        totalDone++;
       }
+      if(props.problem_status[i] === '0' && upNextProblemIndex === -1) {
+        upNextProblemIndex = i;
+      }
+      totalProblems++;
     }
   }
   else if(props.topic.name === "RECURSION AND BACKTRACKING") {
     for(let i = 54; i < 60; i++) {
-      if(props.problem_status[i] === '0') {
-        upNextProblemIndex = i; break;
+      if(props.problem_status[i] === '1') {
+        totalDone++;
       }
+      if(props.problem_status[i] === '0' && upNextProblemIndex === -1) {
+        upNextProblemIndex = i;
+      }
+      totalProblems++;
     }
   }
   else {
     for(let i = 0; i < 6; i++) {
-      if(props.problem_status[i] === '0') {
-        upNextProblemIndex = i; break;
+      if(props.problem_status[i] === '1') {
+        totalDone++;
       }
+      if(props.problem_status[i] === '0' && upNextProblemIndex === -1) {
+        upNextProblemIndex = i;
+      }
+      totalProblems++;
     }
   }
 
-  // let {index,name,type}={props}
-  const styleObjWhite = {
-    fontSize: 25,
-    color:"black",
-    textAlign: "center",
-    fontWeight: "bold",
-    paddingTop: "0px",
-    width: "100%",
-    height: "100%",
-  };
   return (
     <div data-aos="fade-up">
       <Card variant="outlined">
-        <Link to={`/topics/${props.topic.name}`} className="link" >
-          <CardHeader
-            title={props.topic.name}
-            sx = {{textAlign: 'center', color: 'black'}}
-          />
-        </Link>
+        <CardHeader
+          action={
+            <IconButton aria-label="settings">
+              {currPinnedStatus === '0' && props.listType === 'topics'
+                  ? 
+                  <Button variant="outline-success" onClick={(e) => pinTopic(props.topic)}>
+                    <BookmarkAddIcon />
+                  </Button>
+                  :
+                  <Button variant="outline-success" onClick={(e) => unpinTopic(props.topic)}>
+                    <BookmarkRemoveIcon />
+                  </Button> 
+              }
+            </IconButton>
+          }
+          title={<Link to={`/topics/${props.topic.name}`}><Typography color="black" fontFamily="Secular One" fontSize="25px">{props.topic.name}</Typography></Link>}
+        /> 
         <CardContent>
-          <b>Up Next</b><br />
-          {upNextProblemIndex === -1 ? "All Done!!!" : problems[upNextProblemIndex].name}
+          <Font family="Secular One">
+            <b>Up Next</b><br />
+            {upNextProblemIndex === -1 ? "All Done!!!" : problems[upNextProblemIndex].name}
+            <Typography color="green" align="right" fontFamily="Secular One" fontSize="30px">
+              {totalDone}/{totalProblems}
+            </Typography>
+          </Font>
+          
         </CardContent>
       </Card>
-      {/* <Col lg={4} md={6} xs={24}>
-        <MDBCard
-          background={props.topic.type === "light" ? "mb-3" :props.topic.type}
-          className={props.topic.type === "light" ? "mb-3" : "text-white mb-3"}
-          style={{ maxWidth: "18rem" }}
-        >
-          <MDBCardHeader>
-            <p style={styleObjWhite}  >
-              <Link to={`/topics/${props.topic.name}`} className="link" ><i>{props.topic.name}</i></Link>
-            </p>
-          </MDBCardHeader>
-          <MDBCardBody>
-            <MDBCardTitle>Up Next</MDBCardTitle>
-            <MDBCardText>
-              {upNextProblemIndex === -1 ? "All Done!!!" : problems[upNextProblemIndex].name}
-            </MDBCardText>
-          </MDBCardBody>
-        </MDBCard>
-      </Col> */}
     </div>
   );
 }
