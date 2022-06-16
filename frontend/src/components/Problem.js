@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, createContext } from "react";
 // import { styled } from '@mui/material/styles';
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 // import CardMedia from '@mui/material/CardMedia';
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
+import swal from 'sweetalert';
+import { FaNotesMedical } from "react-icons/fa";
 // import Collapse from '@mui/material/Collapse';
 // import Avatar from '@mui/material/Avatar';
 // import IconButton from "@mui/material/IconButton";
@@ -22,6 +24,7 @@ import Checkbox from "@mui/material/Checkbox";
 import "aos/dist/aos.css";
 import Button from "react-bootstrap/Button";
 import AuthContext from "../context/AuthContext";
+import Popup from "./Popup";
 // import ButtonGroup from "react-bootstrap/ButtonGroup";
  
 // Be sure to include styles at some point, probably during your bootstraping
@@ -47,6 +50,7 @@ const label = { inputProps: { "aria-label": "Checkbox demo" } };
 // }));
 
 const Problem = (props) => {
+  // console.log(props)
   // const [expanded, setExpanded] = React.useState(false);
 
   // const handleExpandClick = () => {
@@ -57,6 +61,10 @@ const Problem = (props) => {
 
   const [currProblemStatus, setCurrProblemStatus] = useState(props.currProblemStatus);
   const [currCardColor, setCurrCardColor] = useState(props.currProblemStatus === '1' ? '#76FF7A' : 'white');
+  const [notes,setNotes]=useState(false);
+
+  const [buttonPopup,setButtonPopup]=useState(false)
+  const [timePopup,SetTimePopup]=useState(false)
 
   const changeCurrProblemStatus = async (status) => {
     console.log(status);
@@ -72,18 +80,41 @@ const Problem = (props) => {
     }
   }
 
-  const handleChange = (event) => {
+  const handleChange = async (event) => {
     if(event.target.checked) {
       setCurrProblemStatus('1');
       changeCurrProblemStatus('1');
       setCurrCardColor('#76FF7A');
+      swal({
+        title: "SUCCESS",
+        text: "CHECKED",
+        icon: "success",
+        dangerMode: true,
+        button:false,
+        timer:800
+      })
     }
     else {
       setCurrProblemStatus('0');
       changeCurrProblemStatus('0');
       setCurrCardColor('white');
+      swal({
+        title: "STATUS",
+        text: "UNCHECKED",
+        icon: "error",
+        dangerMode: true,
+        button:false,
+        timer:800
+      })
+
+
     }
   };
+
+
+  // const NotesAdd=()=>{
+
+  // }
 
   useEffect(() => {
     setCurrProblemStatus(props.currProblemStatus);
@@ -97,6 +128,7 @@ const Problem = (props) => {
 
   return (
     <div  data-aos="fade-up">
+
       <Card variant="outlined" sx = {{ backgroundColor: currCardColor }}>
         <CardHeader
           // avatar={
@@ -113,10 +145,26 @@ const Problem = (props) => {
               
             />
           }
+
           title={props.problem.name}
           sx = {{textAlign: 'center'}}
-          // subheader="September 14, 2016"
+
+
+     
+
+
+         
+         
         />
+       
+        {/* <Popup trigger={timePopup} setTrigger={SetTimePopup}></Popup> */}
+
+
+
+        
+      
+           {/* <FaNotesMedical/> */}
+        
         {/* <CardMedia
           component="img"
           height="194"
@@ -168,8 +216,17 @@ const Problem = (props) => {
 
         
       </Card>
+      <button onClick={()=>setButtonPopup(true)}>ADD NOTES</button>
+
+<Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+<h3>My popup</h3></Popup>
+
+
     </div>
   );
 };
 
+
+
 export default Problem;
+//  export default {Totalsum,Sumsolved};

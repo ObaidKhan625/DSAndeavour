@@ -11,6 +11,15 @@ import HomePage from './components/HomePage';
 import LoginPage from './pages/LoginPage';
 import PrivateRoutes from './utils/PrivateRoutes';
 import { AuthProvider } from "./context/AuthContext";
+import { gapi } from "gapi-script";
+
+window.gapi.load('client:auth2', () => {
+  window.gapi.client.init({
+      clientId: 'abc',
+      plugin_name: "chat"
+  })
+})
+
 
 function App() {
   return (
