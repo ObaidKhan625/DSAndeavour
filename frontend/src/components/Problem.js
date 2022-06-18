@@ -1,78 +1,62 @@
-import React, { useState, useEffect, useContext, createContext } from "react";
-// import { styled } from '@mui/material/styles';
+import React, { useState, useEffect, useContext } from "react";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
-// import CardMedia from '@mui/material/CardMedia';
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import swal from 'sweetalert';
-import { FaNotesMedical } from "react-icons/fa";
-// import Collapse from '@mui/material/Collapse';
-// import Avatar from '@mui/material/Avatar';
-// import IconButton from "@mui/material/IconButton";
-// import Typography from '@mui/material/Typography';
-// import { red } from '@mui/material/colors';
-// import FavoriteIcon from '@mui/icons-material/Favorite';
-// import ShareIcon from '@mui/icons-material/Share';
-// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-// import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
-// import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
-// import Aos from "aos";
 import "aos/dist/aos.css";
 import Button from "react-bootstrap/Button";
 import AuthContext from "../context/AuthContext";
-import Popup from "./Popup";
-// import ButtonGroup from "react-bootstrap/ButtonGroup";
- 
-// Be sure to include styles at some point, probably during your bootstraping
-
-
-// import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
-// import Favorite from '@mui/icons-material/Favorite';
-// import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-// import BookmarkIcon from '@mui/icons-material/Bookmark';
+import StickyNote2Icon from '@mui/icons-material/StickyNote2';
+import IconButton from '@mui/material/IconButton';
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import InfoIcon from '@mui/icons-material/Info';
-const label = { inputProps: { "aria-label": "Checkbox demo" } };
+import Backdrop from '@mui/material/Backdrop';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
+import TextField from '@mui/material/TextField';
 
-// const ExpandMore = styled((props) => {
-//   const { expand, ...other } = props;
-//   return <IconButton {...other} />;
-// })(({ theme, expand }) => ({
-//   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-//   marginLeft: 'auto',
-//   transition: theme.transitions.create('transform', {
-//     duration: theme.transitions.duration.shortest,
-//   }),
-// }));
+const noteModalStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 const Problem = (props) => {
-  // console.log(props)
-  // const [expanded, setExpanded] = React.useState(false);
 
-  // const handleExpandClick = () => {
-  //   setExpanded(!expanded);
-  // };
+  let { logoutUser, accessToken } = useContext(AuthContext);
 
-  let { logoutUser, authTokens } = useContext(AuthContext);
+  const [noteModalOpen, setNoteModalOpen] = React.useState(false);
+  const handleNoteModalOpen = () => {
+    setNoteModalOpen(true);
+  }
+  const handleNoteModalClose = () => {
+    setNoteModalOpen(false);
+  };
+
+  const [noteContent, setNoteContent] = React.useState(props.currProblemNote);
 
   const [currProblemStatus, setCurrProblemStatus] = useState(props.currProblemStatus);
   const [currCardColor, setCurrCardColor] = useState(props.currProblemStatus === '1' ? '#76FF7A' : 'white');
-  const [notes,setNotes]=useState(false);
-
-  const [buttonPopup,setButtonPopup]=useState(false)
-  const [timePopup,SetTimePopup]=useState(false)
-
+  
   const changeCurrProblemStatus = async (status) => {
-    console.log(status);
     let response = await fetch(`http://127.0.0.1:8000/api/problem-status/${props.problem.index}/${status}/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + String(authTokens.access),
+        'Authorization': 'Bearer ' + String(accessToken),
       }
     });
     if(response.statusText === 'Unauthorized') {
@@ -80,7 +64,7 @@ const Problem = (props) => {
     }
   }
 
-  const handleChange = async (event) => {
+  const handleProblemStatusChange = async (event) => {
     if(event.target.checked) {
       setCurrProblemStatus('1');
       changeCurrProblemStatus('1');
@@ -106,15 +90,27 @@ const Problem = (props) => {
         button:false,
         timer:800
       })
-
-
     }
   };
 
-
-  // const NotesAdd=()=>{
-
-  // }
+  const updateProblemNote = async() => {
+    if(noteContent === undefined) {
+      return;
+    }
+    let indexS = props.problem.index.toString();
+    let response = await fetch(`http://127.0.0.1:8000/api/problem-notes/${indexS}/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + String(accessToken),
+      },
+      body: JSON.stringify({problem_note: noteContent})
+    });
+    if(response.statusText === 'Unauthorized') {
+      logoutUser();
+    }
+    // console.log(noteContent);
+  }
 
   useEffect(() => {
     setCurrProblemStatus(props.currProblemStatus);
@@ -128,64 +124,29 @@ const Problem = (props) => {
 
   return (
     <div  data-aos="fade-up">
-
       <Card variant="outlined" sx = {{ backgroundColor: currCardColor }}>
         <CardHeader
-          // avatar={
-          //   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-          //     R
-          //   </Avatar>
-          // }
           action={
+            <span>
             <Checkbox
               checked={currProblemStatus === '1'}
-              onChange={handleChange}
+              onChange={handleProblemStatusChange}
               inputProps={{ "aria-label": "controlled" }}
               color='success'
-              
             />
+            <IconButton variant="outline-success" onClick={handleNoteModalOpen}>
+              <StickyNote2Icon />
+            </IconButton>
+            </span>
           }
-
           title={props.problem.name}
           sx = {{textAlign: 'center'}}
-
-
-     
-
-
-         
-         
         />
-       
-        {/* <Popup trigger={timePopup} setTrigger={SetTimePopup}></Popup> */}
 
-
-
-        
-      
-           {/* <FaNotesMedical/> */}
-        
-        {/* <CardMedia
-          component="img"
-          height="194"
-          image="https://mui.com/static/images/cards/paella.jpg"
-          alt="Paella dish"
-        /> */}
         <CardContent>
-          {/* <Typography variant="body2" color="text.secondary">
-            This impressive paella is a perfect party dish and a fun meal to cook
-            together with your guests. Add 1 cup of frozen peas along with the mussels,
-            if you like.
-          </Typography> */}
         </CardContent>
-        <CardActions disableSpacing style={{justifyContent:'center'}}>
-          {/* <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon />
-          </IconButton> */}
 
+        <CardActions disableSpacing style={{justifyContent:'center'}}>
           <Stack
             direction="row"
             divider={<Divider orientation="vertical" flexItem />}
@@ -193,35 +154,53 @@ const Problem = (props) => {
           >
             <Button variant="primary"><InfoIcon sx={{ fontSize: 30 }}/></Button>
             <Button variant="success"><b>Link 1</b></Button>
-            {/* <Button variant="outline-secondary">Secondary</Button>{' '}
-            <Button variant="outline-success">Success</Button>{' '} */}
             <Button variant="success"><b>Link 2</b></Button>
             <Button variant="danger"                           
-            // href={`https://www.youtube.com/watch?v=${video}`}
             href="https://www.youtube.com/watch?v=M65xBewcqcI&list=PLgUwDviBIf0rPG3Ictpu74YWBQ1CaBkm2&index=8"
             >
             <YouTubeIcon sx={{ fontSize: 30 }}/> 
             </Button> 
           </Stack>
-
-          {/* <ExpandMore
-            expand={expanded}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </ExpandMore> */}
-        </CardActions>
-
-        
+        </CardActions>        
       </Card>
-      <button onClick={()=>setButtonPopup(true)}>ADD NOTES</button>
 
-<Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-<h3>My popup</h3></Popup>
-
-
+      {/* Note Popup Modal Start */}
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={noteModalOpen}
+        onClose={handleNoteModalClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={noteModalOpen}>
+          <Box sx={noteModalStyle}>
+            <TextField
+              id="outlined-multiline-static"
+              label="Note"
+              multiline
+              rows={8}
+              fullWidth
+              color="success"
+              focused
+              defaultValue={props.currProblemNote}
+              value={noteContent}
+              onChange={(event) => setNoteContent(event.target.value)}
+            />
+            <Stack direction="row" spacing={2} style={{'marginTop': '15px'}}>
+              {/* <Button variant="contained" style={{'backgroundColor': '#ff9999'}} onclick={(e) => setNoteModalOpen(false)}>
+                <CloseIcon />
+              </Button> */}
+              <Button variant="contained" style={{'backgroundColor': '#00ff00'}} onClick={() => { updateProblemNote(); handleNoteModalClose(); }}>
+                <CheckIcon />
+              </Button>
+            </Stack>
+          </Box>
+        </Fade>
+      </Modal>
     </div>
   );
 };

@@ -5,20 +5,6 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
-# from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-# from rest_framework_simplejwt.views import TokenObtainPairView
-
-# class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-#     @classmethod
-#     def get_token(cls, user):
-#         token = super().get_token(user)
-#         token['name'] = user.username
-
-#         return token
-
-# class MyTokenObtainPairView(TokenObtainPairView):
-#     serializer_class = MyTokenObtainPairSerializer
-
 class PinnedTopicsViewSet(viewsets.ViewSet):
     permission_classes = [IsAuthenticated]
     def list(self, request):
@@ -39,14 +25,6 @@ class PinnedTopicsViewSet(viewsets.ViewSet):
         user.topics_pinned = ''.join(currentUserPinnedStatus)
         user.save()
 
-class ProblemInfoViewSet(viewsets.ViewSet):
-    permission_classes = [IsAuthenticated]
-    def retrieve(self, request, problemId):
-        queryset = ProblemInfo.objects.all()
-        problemInfo = get_object_or_404(queryset, problem_id = problemId)
-        serializer = ProblemInfoSerializer(note)
-        return Response(serializer.data)
-
 class ProblemStatusViewSet(viewsets.ViewSet):
     permission_classes = [IsAuthenticated]
     def retrieve(self, request):
@@ -66,10 +44,25 @@ class ProblemStatusViewSet(viewsets.ViewSet):
         user.problem_status = ''.join(currentUserProblemStatus)
         user.save()
 
-class Abc(viewsets.ViewSet):
+class ProblemNotesViewSet(viewsets.ViewSet):
+    permission_classes = [IsAuthenticated]
     def retrieve(self, request):
         user = User.objects.get(username = request.user)
+        serializer = ProblemNotesSerializer(user)
+        return Response(serializer.data)
+    
+    def update(self, request, problemId):
+        user = User.objects.get(username = request.user)
+        user.problems_notes[problemId] = request.data['problem_note']
+        user.save()
+        serializer = ProblemNotesSerializer(user)
+        return Response(serializer.data)
+
+class Abc(viewsets.ViewSet):
+    def retrieve(self, request):
+        user = User.objects.get(username = "ephiram2002")
         user.problem_status = '0'*350
+        user.problems_notes[0] = "HEYYY"
         user.save()
         serializer = ProblemStatusSerializer(user)
         return Response(serializer.data)

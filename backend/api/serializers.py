@@ -6,12 +6,12 @@ class PinnedTopicsSerializer(serializers.ModelSerializer):
         model = User
         fields = ['topics_pinned']
 
-class ProblemInfoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ProblemInfo
-        fields = ['content']
-
 class ProblemStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['problem_status']
+
+class ProblemNotesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['problems_notes']

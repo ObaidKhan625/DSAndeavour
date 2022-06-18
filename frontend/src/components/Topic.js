@@ -186,13 +186,9 @@ export default function Problem(props) {
             <IconButton aria-label="settings">
               {currPinnedStatus === '0' && props.listType === 'topics'
                   ? 
-                  <Button variant="outline-success" onClick={(e) => pinTopic(props.topic)}>
-                    <BookmarkAddIcon />
-                  </Button>
+                  <BookmarkAddIcon onClick={(e) => pinTopic(props.topic)}/>
                   :
-                  <Button variant="outline-success" onClick={(e) => unpinTopic(props.topic)}>
-                    <BookmarkRemoveIcon />
-                  </Button> 
+                  <BookmarkRemoveIcon onClick={(e) => unpinTopic(props.topic)}/>
               }
             </IconButton>
           }

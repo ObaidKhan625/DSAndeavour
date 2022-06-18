@@ -85,24 +85,26 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
+# LOCAL SETTINGS
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'django',
-        'CLIENT': {
-            'host': "mongodb+srv://Obaid:Milanor'sClusterForSS@striversheetcluster.9fkvm.mongodb.net/test",
-            'username': 'Obaid',
-            'password': "Milanor'sClusterForSS",
-        }
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'Striver Sheet Project',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres123',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
+
+OAUTH2_PROVIDER = {
+    'ACCESS_TOKEN_EXPIRE_SECONDS': 60 * 60 * 24,
+    'OAUTH_SINGLE_ACCESS_TOKEN': True,
+    'OAUTH_DELETE_EXPIRED': True
+}
+
+# import mongoengine
+# mongoengine.connect(db='StriverSheetCluster', host="mongodb+srv://Obaid:Milanor'sClusterForSS@striversheetcluster.9fkvm.mongodb.net/test", username="Obaid", password="Milanor'sClusterForSS")
 
 # REST_FRAMEWORK = {
 #     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -139,7 +141,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
 ]
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_PROVIDER = {
-    'ACCESS_TOKEN_EXPIRE_SECONDS': 10,
+    'ACCESS_TOKEN_EXPIRE_SECONDS': 60 * 60 * 24,
     'OAUTH_SINGLE_ACCESS_TOKEN': True,
     'OAUTH_DELETE_EXPIRED': True
 }
