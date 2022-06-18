@@ -28,8 +28,7 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route element = {<PrivateRoutes />} >
-            <Route path = "/" element={<HomePage />} exact/>
-            <Route path = "/topics" element = {<TopicsListPage />} exact/>
+            <Route path = "/" element = {<TopicsListPage />} exact/>
             <Route path = "/topics/:topicName" element = {<TopicsQuestionsPage />} />
           </Route>
           <Route path = "/login" element = {<LoginPage />} exact/>
