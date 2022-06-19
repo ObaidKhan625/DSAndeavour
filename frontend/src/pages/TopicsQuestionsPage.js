@@ -22,9 +22,10 @@ const TopicsQuestionsPage = () => {
   const topicName = params.topicName;
 
   var problems = [];
-
+ 
   const [problemStatus, setProblemStatus] = useState("");
   const [problemNotesList, setProblemNotesList] = useState([]);
+ 
 
   const getProblemStatusAndNotes = async () => {
     let problemStatusResponse = await fetch('http://127.0.0.1:8000/api/problem-status/', {
@@ -53,6 +54,7 @@ const TopicsQuestionsPage = () => {
       for(let i = 0; i < 6; i++) {
         tempProblemStatus += problemStatusResponseJson['problem_status'][i];
         tempProblemNotes.push(problemNotesResponseJson['problems_notes'][i]);
+        
       }
       setProblemStatus(tempProblemStatus);
       setProblemNotesList(tempProblemNotes);
@@ -63,6 +65,7 @@ const TopicsQuestionsPage = () => {
       for(let i = 6; i < 12; i++) {
         tempProblemStatus += problemStatusResponseJson['problem_status'][i];
         tempProblemNotes.push(problemNotesResponseJson['problems_notes'][i]);
+       
       }
       setProblemStatus(tempProblemStatus);
       setProblemNotesList(tempProblemNotes);

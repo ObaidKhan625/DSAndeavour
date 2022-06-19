@@ -12,10 +12,12 @@ import LoginPage from './pages/LoginPage';
 import PrivateRoutes from './utils/PrivateRoutes';
 import { AuthProvider } from "./context/AuthContext";
 import { gapi } from "gapi-script";
+import Aboutus from "./components/footer/Aboutus";
+import Feedback from "./pages/Feedback";
 
 window.gapi.load('client:auth2', () => {
   window.gapi.client.init({
-      clientId: 'abc',
+      clientId: '673674178296-m63l2q6n5jdqevqfoucccsgr70see998.apps.googleusercontent.com',
       plugin_name: "chat"
   })
 })
@@ -30,6 +32,8 @@ function App() {
           <Route element = {<PrivateRoutes />} >
             <Route path = "/" element = {<TopicsListPage />} exact/>
             <Route path = "/topics/:topicName" element = {<TopicsQuestionsPage />} />
+            <Route path = "/feedback" element = {<Feedback />} exact/>
+            <Route path = "/aboutus" element = {<Aboutus />} exact/>
           </Route>
           <Route path = "/login" element = {<LoginPage />} exact/>
         </Routes>

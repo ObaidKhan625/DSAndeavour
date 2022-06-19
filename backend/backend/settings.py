@@ -97,6 +97,11 @@ DATABASES = {
     }
 }
 
+
+
+
+
+
 OAUTH2_PROVIDER = {
     'ACCESS_TOKEN_EXPIRE_SECONDS': 60 * 60 * 24,
     'OAUTH_SINGLE_ACCESS_TOKEN': True,

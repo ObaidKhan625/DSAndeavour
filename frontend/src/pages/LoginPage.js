@@ -8,12 +8,13 @@ import Grid from '@mui/material/Grid';
 import Font from 'react-font';
 import Typography from '@mui/material/Typography';
 import googleLogo from '../assets/google-logo.png';
+import Footer from '../components/footer/Footer';
 const apiBaseURL = "http://localhost:8000";
 const appBaseURL = "http://localhost:3000";
 
-const googleClientId = 'abc';
-const drfClientId = 'abc';
-const drfClientSecret = 'abc';
+const googleClientId = '673674178296-m63l2q6n5jdqevqfoucccsgr70see998.apps.googleusercontent.com';
+const drfClientId = 'ppdguyevsiD9JKCFfzUiFiEMhVSaA2zMgehrZeAe';
+const drfClientSecret = 'PsozGa1e74h3vkg83UG0V9RWTQMH7VJJv36PALBRBkRlSKXSta5oBlnRK85r20Oa0M3npJwt2ZPfNizOFnO6p19rmr2zMVCiMkYlOOfqVGjaxS7dyXwftUDxZ5DRNIoG';
 
 const handleGoogleLogin = (response) => {
   axios
@@ -42,6 +43,7 @@ const handleGoogleLogin = (response) => {
 const LoginPage = () => {
   const navigate = useNavigate();
   return (
+    <div>
     <div>
       <Container style={{'backgroundColor': 'rgba(255, 255, 255, 0.2)', 
       'height': '100vh', 'boxShadow': '0 4px 30px rgba(0, 0, 0, 0.1)', 'paddingTop': '300px'}}>
@@ -89,7 +91,12 @@ const LoginPage = () => {
             />
           </Grid>
         </Grid> 
+        <Footer/>
       </Container>
+   
+    </div>
+
+  
     </div>
   )
 }
