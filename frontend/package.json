@@ -27,9 +27,12 @@
     "react-font": "^1.2.1",
     "react-google-login": "^5.2.2",
     "react-icons": "^4.4.0",
+    "react-loading-screen": "^0.0.17",
+    "react-notifications": "^1.7.3",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "react-simple-star-rating": "^4.0.5",
+    "react-spinners": "^0.12.0",
     "sweetalert": "^2.1.2",
     "web-vitals": "^2.1.4"
   },

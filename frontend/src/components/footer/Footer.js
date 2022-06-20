@@ -1,23 +1,12 @@
 import React from "react";
 import "./footer.css";
-import { useNavigate } from "react-router-dom";
 
 function Footer(props) {
-  let navigate = useNavigate();
-  const routeChangeFeedback = () => {
-    let path = `/feedback`;
-    navigate(path);
-  };
-
-  const routeChangeAboutus = () => {
-    let path = `/aboutus`;
-    navigate(path);
-  };
 
   return (
     <div
       style={{
-        paddingTop: "180px",
+        paddingTop: "10vh",
       }}
     >
       <div className="footer">
@@ -27,25 +16,25 @@ function Footer(props) {
               target="_blank"
               rel="noopener noreferrer"
               className={"footer-link"}
-              href="https://github.com/ObaidKhan625/Striver_Sheet"
+              href="https://github.com/ObaidKhan625/Striver_Sheet_Tracker"
             >
               <div className={"footer-div-small"}>
                 <b> GITHUB 🎉</b>
               </div>
             </a>
           </div>
-          <div>
-            <div className="footer-repo">
-              <div className={"footer-div-small"}>
-                <b onClick={routeChangeAboutus}>ABOUT US 😀</b>
-              </div>
-            </div>
-          </div>
 
           <div className="footer-repo">
-            <div className={"footer-div-small"}>
-              <b onClick={routeChangeFeedback}> FEEDBACK 📜</b>
-            </div>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              className={"footer-link"}
+              href="/about"
+            >
+              <div className={"footer-div-small"}>
+                <b>ABOUT US 📜</b>
+              </div>
+            </a>
           </div>
         </div>
       </div>

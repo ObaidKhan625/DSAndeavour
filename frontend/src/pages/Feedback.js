@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Rating } from "react-simple-star-rating";
 import { Container } from "@mui/system";
 import { Form, Button } from "react-bootstrap";
 import Font from "react-font";
@@ -11,7 +10,7 @@ export default function MyComponent() {
     console.log(details);
     setDetails(details);
   };
-
+  
   return (
     <div>
       <div>
@@ -29,7 +28,7 @@ export default function MyComponent() {
               boxSizing: "content-box",
             }}
           >
-            <Font family="Lobster">
+            <Font family="Secular One">
               {" "}
               <h1
                 style={{

@@ -40,9 +40,9 @@
 }
 
 .footer-div-small{
-    background-color:#FFD700;
+    background-color:white;
     color: rgba(0, 0, 0, 0.87);
-    padding: 0.2rem 1.5rem 0.3rem 1.3rem;
+    padding: 20px;
     border-radius: 10px;
     font-size: small;
     font-weight: 600;
