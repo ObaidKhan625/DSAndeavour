@@ -97,7 +97,7 @@ let topics = [
     },
     {
         'index':'19',
-        'name': 'BINARY SEARCH TREE ',
+        'name': 'BINARY SEARCH TREE',
         'type': 'warning'
     },
     {
@@ -107,7 +107,7 @@ let topics = [
     },
     {
         'index':'21',
-        'name': 'BINARY SEARCH TREE (MISCELLAEOUS) ',
+        'name': 'BINARY SEARCH TREE (MISCELLAEOUS)',
         'type': 'primary'
     },
     {

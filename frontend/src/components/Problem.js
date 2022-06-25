@@ -21,6 +21,7 @@ import Fade from '@mui/material/Fade';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import TextField from '@mui/material/TextField';
+import CancelIcon from "@mui/icons-material/Cancel";
 
 const noteModalStyle = {
   position: 'absolute',
@@ -62,16 +63,18 @@ const Problem = (props) => {
     if(response.statusText === 'Unauthorized') {
       logoutUser();
     }
+    props.deactivateLoading();
   }
 
   const handleProblemStatusChange = async (event) => {
+    props.activateLoading();
     if(event.target.checked) {
       setCurrProblemStatus('1');
       changeCurrProblemStatus('1');
       setCurrCardColor('#76FF7A');
       swal({
         title: "SUCCESS",
-        text: "CHECKED",
+        text: "Marked As Done!",
         icon: "success",
         dangerMode: true,
         button:false,
@@ -84,7 +87,7 @@ const Problem = (props) => {
       setCurrCardColor('white');
       swal({
         title: "STATUS",
-        text: "UNCHECKED",
+        text: "Marked As Incomplete!",
         icon: "error",
         dangerMode: true,
         button:false,
@@ -109,7 +112,6 @@ const Problem = (props) => {
     if(response.statusText === 'Unauthorized') {
       logoutUser();
     }
-    // console.log(noteContent);
   }
 
   useEffect(() => {
@@ -152,11 +154,23 @@ const Problem = (props) => {
             divider={<Divider orientation="vertical" flexItem />}
             spacing={2}
           >
-            <Button variant="primary"><InfoIcon sx={{ fontSize: 30 }}/></Button>
-            <Button variant="success"><b>Link 1</b></Button>
-            <Button variant="success"><b>Link 2</b></Button>
-            <Button variant="danger"                           
-            href="https://www.youtube.com/watch?v=M65xBewcqcI&list=PLgUwDviBIf0rPG3Ictpu74YWBQ1CaBkm2&index=8"
+            <Button variant="primary" target='_blank'
+            href={props.problem.info}
+            >
+              <InfoIcon sx={{ fontSize: 30 }}/>
+            </Button>
+            <Button variant="success" target='_blank'
+            href={props.problem.link1}
+            >
+              <b>Link 1</b>
+            </Button>
+            <Button variant="success" target='_blank'
+            href={props.problem.link2}
+            >
+              <b>Link 2</b>
+            </Button>
+            <Button variant="danger" target='_blank'                     
+            href={props.problem.yt}
             >
             <YouTubeIcon sx={{ fontSize: 30 }}/> 
             </Button> 
@@ -177,7 +191,7 @@ const Problem = (props) => {
         }}
       >
         <Fade in={noteModalOpen}>
-          <Box sx={noteModalStyle}>
+        <Box sx={noteModalStyle}>
             <TextField
               id="outlined-multiline-static"
               label="Note"
@@ -190,11 +204,24 @@ const Problem = (props) => {
               value={noteContent}
               onChange={(event) => setNoteContent(event.target.value)}
             />
-            <Stack direction="row" spacing={2} style={{'marginTop': '15px'}}>
-              {/* <Button variant="contained" style={{'backgroundColor': '#ff9999'}} onclick={(e) => setNoteModalOpen(false)}>
-                <CloseIcon />
-              </Button> */}
-              <Button variant="contained" style={{'backgroundColor': '#00ff00'}} onClick={() => { updateProblemNote(); handleNoteModalClose(); }}>
+            <Stack direction="row" spacing={2} style={{ marginTop: "15px" }}>
+              <Button
+                variant="contained"
+                style={{ backgroundColor: "#FF0000" }}
+                onClick={() => {
+                  handleNoteModalClose();
+                }}
+              >
+                <CancelIcon />
+              </Button>
+              <Button
+                variant="contained"
+                style={{ backgroundColor: "#00ff00" }}
+                onClick={() => {
+                  updateProblemNote();
+                  handleNoteModalClose();
+                }}
+              >
                 <CheckIcon />
               </Button>
             </Stack>
@@ -208,4 +235,3 @@ const Problem = (props) => {
 
 
 export default Problem;
-//  export default {Totalsum,Sumsolved};

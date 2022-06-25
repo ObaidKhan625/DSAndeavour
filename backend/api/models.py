@@ -15,31 +15,9 @@ class User(AbstractUser):
 		# self.problem_status = '0'*350
 		super(User, self).save(*args, **kwargs)
 
-# from django.db import models
-# from django.contrib.auth.models import AbstractUser
-# from mongoengine import Document, fields
-# # Create your models here. Hey
+class Feedback(models.Model):
+	user = 						models.ForeignKey(User, on_delete=models.CASCADE)
+	feedback = 					models.TextField(blank = True, null = True)
 
-# class User(AbstractUser):
-# 	problem_status = 			fields.StringField(max_length = 350, default = '0'*350)
-# 	topics_pinned = 			fields.StringField(max_length = 31, default = '0'*31)
-
-# 	def __str__(self):
-# 		return str(self.username)
-	
-# 	def create(self, *args, **kwargs):
-# 		self.problem_status = '0'*350
-# 		self.topics_pinned = '0'*31
-# 		super(User, self).create(*args, **kwargs)
-	
-# 	def save(self, *args, **kwargs):
-# 		# self.problem_status = '0'*350
-# 		super(User, self).save(*args, **kwargs)
-
-# class ProblemInfo(Document):
-# 	note_content = 				fields.StringField(null = True, blank = True)
-# 	user = 						fields.ReferenceField(User)
-# 	problem_id = 				fields.IntField(null = True)
-	
-# 	def __str__(self):
-# 		return str(self.user) + "'s on problem id: " + str(self.problem_id)
+	def __str__(self):
+		return str(self.user) + ' feedback'
