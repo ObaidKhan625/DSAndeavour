@@ -55,7 +55,6 @@ const TopicsListPage = () => {
     let responseJson = await response.json();
     setProblemStatus(responseJson['problem_status']);
     for (let i = 0; i < 60; i++) {
-      // console.log(responseJson['problem_status'][i]+" "+typeof(responseJson['problem_status'][i]))
       if (problemStatus[i] === "1") {
         problemDone += 1;
       }
@@ -141,10 +140,12 @@ const TopicsListPage = () => {
           </Font>
           <Grid container spacing={4} paddingTop={5} paddingLeft={5} paddingRight={5}>
             {pinnedTopicsList.map((topic, index) => (
-              <Grid item xs={12} md={6} lg={4}>
-                <Topic key={index} topic={topic} problem_status={problemStatus} currPinnedStatus={pinnedTopics[topic.index-'0']} 
-                getPinnedTopics={getPinnedTopics} activateLoading={activateLoading} loading={loading} listType="pins"/>
-              </Grid>
+              <React.Fragment key={index}>
+                <Grid item xs={12} md={6} lg={4}>
+                  <Topic key={index} topic={topic} problem_status={problemStatus} currPinnedStatus={pinnedTopics[topic.index-'0']} 
+                  getPinnedTopics={getPinnedTopics} activateLoading={activateLoading} loading={loading} listType="pins"/>
+                </Grid>
+              </React.Fragment>
             ))}
           </Grid>
           <Font family="Lobster">
@@ -165,10 +166,12 @@ const TopicsListPage = () => {
           </Font>
           <Grid container spacing={4} paddingTop={5} paddingLeft={5} paddingRight={5}>
             {topics.map((topic, index) => (
-              <Grid item xs={12} md={6} lg={4}>
-                <Topic key={index} topic={topic} problem_status={problemStatus} currPinnedStatus={pinnedTopics[index]} 
-                getPinnedTopics={getPinnedTopics} activateLoading={activateLoading} loading={loading} listType="topics"/> 
-              </Grid>
+              <React.Fragment key={index}>
+                <Grid item xs={12} md={6} lg={4}>
+                  <Topic key={index} topic={topic} problem_status={problemStatus} currPinnedStatus={pinnedTopics[index]} 
+                  getPinnedTopics={getPinnedTopics} activateLoading={activateLoading} loading={loading} listType="topics"/> 
+                </Grid>
+              </React.Fragment>
             ))}
           </Grid>
         </div>

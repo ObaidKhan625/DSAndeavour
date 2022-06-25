@@ -1,14 +1,16 @@
 import { createContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Cookies from "universal-cookie";
 
 const AuthContext = createContext();
 
 export default AuthContext;
 
 export const AuthProvider = ({children}) => {
-    const tokenExists = localStorage.getItem('google_access_token') ? true : false;
-    let accessToken = tokenExists ? localStorage.getItem('google_access_token') : null;
-    let refreshToken = tokenExists ? localStorage.getItem('google_refresh_token') : null;
+    const cookies = new Cookies();
+    const tokenExists = cookies.get('google_access_token') ? true : false;
+    let accessToken = tokenExists ? cookies.get('google_access_token') : null;
+    let refreshToken = tokenExists ? cookies.get('google_refresh_token') : null;
 
     const navigate = useNavigate();
 
@@ -18,9 +20,8 @@ export const AuthProvider = ({children}) => {
     }
 
     const logoutUser = async() => {
-        console.log("Hey");
-        localStorage.removeItem('google_access_token');
-        localStorage.removeItem('google_refresh_token');
+        cookies.remove("google_access_token");
+        cookies.remove("google_refresh_token");
         navigate('/login');
     }
 

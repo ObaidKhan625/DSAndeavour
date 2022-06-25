@@ -56,7 +56,6 @@ export default function Problem(props) {
   };
 
   useEffect(() => {
-    // console.log(props.topic);
     setCurrPinnedStatus(props.currPinnedStatus);
   }, [props.currPinnedStatus])
 
@@ -411,23 +410,26 @@ export default function Problem(props) {
         <CardHeader
           action={
             !props.loading ?
-            <IconButton aria-label="settings">
+            <IconButton aria-label="settings" onClick={(e) => {
+              if(currPinnedStatus === '0' && props.listType === 'topics') {
+                props.activateLoading();
+                pinTopic(props.topic);
+              }
+              else {
+                props.activateLoading();
+                unpinTopic(props.topic);
+              }
+            }}>
               {currPinnedStatus === '0' && props.listType === 'topics'
                   ? 
-                  <BookmarkAddIcon onClick={(e) => {
-                    props.activateLoading();
-                    pinTopic(props.topic);
-                  }}/>
+                  <BookmarkAddIcon/>
                   :
-                  <BookmarkRemoveIcon onClick={(e) => {
-                    props.activateLoading();
-                    unpinTopic(props.topic);
-                  }}/>
+                  <BookmarkRemoveIcon/>
               }
             </IconButton>
             : <BookmarkBorderIcon />
           }
-          title={<Link to={`/topics/${props.topic.name}`}><Typography color="black" fontFamily="Secular One" fontSize="25px">{props.topic.name}</Typography></Link>}
+          title={<Link to={`/topics/${props.topic.name}`}><Typography fontFamily="Secular One" fontSize="25px">{props.topic.name}</Typography></Link>}
         /> 
         <CardContent>
           <Font family="Secular One">

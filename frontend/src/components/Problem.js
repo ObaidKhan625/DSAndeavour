@@ -112,7 +112,6 @@ const Problem = (props) => {
     if(response.statusText === 'Unauthorized') {
       logoutUser();
     }
-    // console.log(noteContent);
   }
 
   useEffect(() => {
