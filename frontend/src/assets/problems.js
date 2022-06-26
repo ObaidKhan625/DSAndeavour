@@ -9,6 +9,7 @@ let problems = [
         'info':'https://takeuforward.org/data-structure/set-matrix-zero/'
     },
     {
+        //eslint-disable-next-line
         'name':'Pascal\s Triangle',
         'index':'1',
         'link1':'https://www.codingninjas.com/codestudio/problems/1089580?topList=striver-sde-sheet-problems&utm_source=striver&utm_medium=website',

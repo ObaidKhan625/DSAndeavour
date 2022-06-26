@@ -384,11 +384,12 @@ const TopicsQuestionsPage = () => {
   const deactivateLoading = async() => {
     setLoading(false);
   }
-
+  var count=0;
   useEffect(() => {
     getProblemStatusAndNotes();
+      //eslint-disable-next-line
   }, [count]);
-  var count=0;
+  
 
   if(topicName === "ARRAYS 1") {
     for(let i = 0; i < 6; i++) {
@@ -576,9 +577,9 @@ const TopicsQuestionsPage = () => {
               horizontal: 'left',
             }}
             >
-              <Typography sx={{ p: 2 }}><a target="_blank" href="/about">About Us</a></Typography>
-                  <Typography sx={{ p: 2 }}><a target="_blank" href="/feedback">Feedback</a></Typography>
-                  <Typography sx={{ p: 2 }}><a target="_blank" href="https://github.com/ObaidKhan625/Striver_Sheet_Tracker">Contribute</a></Typography>
+              <Typography sx={{ p: 2 }}><a target="_blank" rel="noopener noreferrer" href="/about">About Us</a></Typography>
+                  <Typography sx={{ p: 2 }}><a target="_blank" rel="noopener noreferrer" href="/feedback">Feedback</a></Typography>
+                  <Typography sx={{ p: 2 }}><a target="_blank" rel="noopener noreferrer" href="https://github.com/ObaidKhan625/Striver_Sheet_Tracker">Contribute</a></Typography>
             </Popover>
           </span>
         </h1>

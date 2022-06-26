@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Link } from 'react-router-dom';
-import { Button } from "@mui/material";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import problems from '../assets/problems';
 import Card from "@mui/material/Card";
@@ -42,7 +41,7 @@ export default function Problem(props) {
   };
 
   const unpinTopic  = async() => {
-    let response = await fetch(`http://127.0.0.1:8000/api/pinned-topics/${props.topic.index}/0/`, {
+     await fetch(`http://127.0.0.1:8000/api/pinned-topics/${props.topic.index}/0/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
