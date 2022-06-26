@@ -52,8 +52,8 @@ const AboutUsPage = () => {
           <Typography  color="black"  fontSize="20px" fontFamily="Lobster" style={{'textAlign': 'center', 'paddingTop': '5vh'}}>
             Incase of any suggestions feel free to give us <a target='_blank' href="/feedback">feedback</a>.<br /> 
             Or get in touch with : <br />
-            <a target='_blank' href="https://www.linkedin.com/in/obaid-khan-590489213/">Obaid Khan</a><br />
-            <a target='_blank' href="https://www.linkedin.com/in/farhan-shaikh-568a271b6/">Farhan Shaikh</a><br />
+            <a target='_blank'  rel="noopener noreferrer"href="https://www.linkedin.com/in/obaid-khan-590489213/">Obaid Khan</a><br />
+            <a target='_blank' rel="noopener noreferrer" href="https://www.linkedin.com/in/farhan-shaikh-568a271b6/">Farhan Shaikh</a><br />
           </Typography>
         </Font>
 

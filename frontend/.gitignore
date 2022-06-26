@@ -26,3 +26,12 @@ node_modules
 
 password=Milanor'sClusterForSS 
 //FOR dJNAGO Backend framework
+
+
+const googleClientId = '673674178296-m63l2q6n5jdqevqfoucccsgr70see998.apps.googleusercontent.com';
+const drfClientId = '9C1b0TBbAodoGzYt4bX7sujtZUAnyqBqh7lW3OY4';
+const drfClientSecret = 'Uj1rp8bfsjJE0ryfX0uxgVSEi95Sw3SVp3u7Gb55MND0CIq7dnFm5BSkKOMti0Y4J8ImiVtu7mU5a9l4NhhMSiOlgzGSSJEvWFWuR2GdeMX0DZfVHrsT06FWOTFXCWvu';
+
+
+
+

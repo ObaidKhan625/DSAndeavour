@@ -54,7 +54,7 @@ const TopicsListPage = () => {
     }
     let responseJson = await response.json();
     setProblemStatus(responseJson['problem_status']);
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 195; i++) {
       if (problemStatus[i] === "1") {
         problemDone += 1;
       }
@@ -69,6 +69,7 @@ const TopicsListPage = () => {
 
   useEffect(() => {
     getProblemStatus();
+    //eslint-disable-next-line
   }, [problemStatus]);
 
   const getPinnedTopics = async () => {
@@ -97,6 +98,7 @@ const TopicsListPage = () => {
 
   useEffect(() => {
     getPinnedTopics();
+    //eslint-disable-next-line
   }, [pinnedTopics]);
 
   return (
@@ -133,7 +135,7 @@ const TopicsListPage = () => {
                 >
                   <Typography sx={{ p: 2 }}><a target="_blank" href="/about">About Us</a></Typography>
                   <Typography sx={{ p: 2 }}><a target="_blank" href="/feedback">Feedback</a></Typography>
-                  <Typography sx={{ p: 2 }}><a target="_blank" href="https://github.com/ObaidKhan625/Striver_Sheet_Tracker">Contribute</a></Typography>
+                  <Typography sx={{ p: 2 }}><a target="_blank" rel="noopener noreferrer" href="https://github.com/ObaidKhan625/Striver_Sheet_Tracker">Contribute</a></Typography>
                 </Popover>
               </span>
             </h1>
@@ -160,7 +162,7 @@ const TopicsListPage = () => {
               fontFamily="Secular One"
               fontSize="35px"
             >
-              {solvedproblem}/60
+              {solvedproblem}/195
             </Typography>
           </h1>
           </Font>

@@ -12,7 +12,8 @@ import NoMatchingPage from './pages/NoMatchingPage';
 import PrivateRoutes from './utils/PrivateRoutes';
 import Feedback from './pages/Feedback';
 import { AuthProvider } from "./context/AuthContext";
-import { gapi } from "gapi-script";
+import { gapi } from "gapi-script";  // eslint-disable-line no-unused-vars
+
 
 window.gapi.load('client:auth2', () => {
   window.gapi.client.init({

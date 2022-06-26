@@ -51,7 +51,7 @@ class ProblemNotesViewSet(viewsets.ViewSet):
     def retrieve(self, request):
         user = User.objects.get(username = request.user)
         serializer = ProblemNotesSerializer(user)
-        print(user.problems_notes)
+        # print(user.problems_notes)
         return Response(serializer.data)
     
     def update(self, request, problemId):
