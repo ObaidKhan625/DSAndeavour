@@ -2,8 +2,10 @@ from .models import *
 from django.shortcuts import get_object_or_404
 from .serializers import *
 from rest_framework import viewsets
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from django.core.mail import EmailMessage
 
 class PinnedTopicsViewSet(viewsets.ViewSet):
     permission_classes = [IsAuthenticated]
@@ -49,6 +51,7 @@ class ProblemNotesViewSet(viewsets.ViewSet):
     def retrieve(self, request):
         user = User.objects.get(username = request.user)
         serializer = ProblemNotesSerializer(user)
+        print(user.problems_notes)
         return Response(serializer.data)
     
     def update(self, request, problemId):
@@ -58,11 +61,8 @@ class ProblemNotesViewSet(viewsets.ViewSet):
         serializer = ProblemNotesSerializer(user)
         return Response(serializer.data)
 
-class Abc(viewsets.ViewSet):
-    def retrieve(self, request):
-        user = User.objects.get(username = "ephiram2002")
-        user.problem_status = '0'*350
-        user.problems_notes[0] = "HEYYY"
-        user.save()
-        serializer = ProblemStatusSerializer(user)
-        return Response(serializer.data)
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def sendEmail(request):
+    Feedback.objects.create(user = request.user, feedback = request.data['feedback']['feedback'])
+    return Response({'hey': 'hey'})
