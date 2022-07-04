@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import GoogleLogin from "react-google-login";
 import axios from "axios";
 import Button from '@mui/material/Button';
@@ -10,24 +11,34 @@ import googleLogo from '../assets/google-logo.png';
 import Footer from '../components/footer/Footer';
 import LoadingScreen from 'react-loading-screen';
 import Cookies from "universal-cookie";
+import AuthContext from '../context/AuthContext';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 const apiBaseURL = "http://localhost:8000";
 const appBaseURL = "http://localhost:3000";
 
-const googleClientId = 'abc';
-const drfClientId = 'abc';
-const drfClientSecret = 'abc';
+// Will be deprecated
+const googleClientId = '673674178296-u69af3bdvpoc06oqji8ht8niau7ooocv.apps.googleusercontent.com';
+const drfClientId = 'd36WcE0lMyg7mMDep9srtAlBzT94GYLbobHAkWCp';
+const drfClientSecret = '1Cgsn7mX4BN07Pc4mApWaxWUBLq0nLTIjEAG9aNVDWKhcED3hGcU1zZIk6aUriAFljARcgUg84ntF88tN2x9qf1VglPbmQ1HPEZlr8yirtYMQS1mRruICWoRUqvEkwAD';
 
 const createErrorNotification = () => {
   alert("An Error Occurred!");
   return () => {
-    NotificationManager.error('Login Failed!', 'Error!')}
-  ;
+    NotificationManager.error('Login Failed!', 'Error!')};
 };
 
 const LoginPage = () => {
 
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { accessToken } = useContext(AuthContext);
+  const authenticated = (accessToken ? true : false);
+  
+  useEffect(() => {
+    if(authenticated) {
+      navigate('/');
+    }
+  }, []);
 
   const handleGoogleLogin = (response) => {
     setLoading(true);

@@ -14,10 +14,10 @@ import Feedback from './pages/Feedback';
 import { AuthProvider } from "./context/AuthContext";
 import { gapi } from "gapi-script";  // eslint-disable-line no-unused-vars
 
-
+// Will be deprecated
 window.gapi.load('client:auth2', () => {
   window.gapi.client.init({
-      clientId: 'abc',
+      clientId: '673674178296-u69af3bdvpoc06oqji8ht8niau7ooocv.apps.googleusercontent.com',
       plugin_name: "chat"
   })
 })
