@@ -16,6 +16,8 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 
 export default function Problem(props) {
 
+  const apiBaseURL = "http://localhost:8000";
+
   let { logoutUser, accessToken } = useContext(AuthContext);
 
   const [currPinnedStatus, setCurrPinnedStatus] = useState(props.currPinnedStatus);
@@ -24,7 +26,7 @@ export default function Problem(props) {
     if(currPinnedStatus === '1') {
       return;
     }
-    let response = await fetch(`http://127.0.0.1:8000/api/pinned-topics/${props.topic.index}/1/`, {
+    let response = await fetch(`${apiBaseURL}/api/pinned-topics/${props.topic.index}/1/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -41,7 +43,7 @@ export default function Problem(props) {
   };
 
   const unpinTopic  = async() => {
-     await fetch(`http://127.0.0.1:8000/api/pinned-topics/${props.topic.index}/0/`, {
+     await fetch(`${apiBaseURL}/api/pinned-topics/${props.topic.index}/0/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

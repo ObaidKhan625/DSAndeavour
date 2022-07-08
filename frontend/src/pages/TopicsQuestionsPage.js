@@ -16,6 +16,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Typography from '@mui/material/Typography';
 
 const TopicsQuestionsPage = () => {
+
+  const apiBaseURL = "http://localhost:8000";
+
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
@@ -45,14 +48,14 @@ const TopicsQuestionsPage = () => {
   const menuId = menuOpen ? 'simple-popover' : undefined;
 
   const getProblemStatusAndNotes = async () => {
-    let problemStatusResponse = await fetch('http://127.0.0.1:8000/api/problem-status/', {
+    let problemStatusResponse = await fetch(`${apiBaseURL}/api/problem-status/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + String(accessToken),
       }
     });
-    let problemNotesListResponse = await fetch('http://127.0.0.1:8000/api/problem-notes/', {
+    let problemNotesListResponse = await fetch(`${apiBaseURL}/api/problem-notes/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

@@ -36,6 +36,8 @@ const noteModalStyle = {
 
 const Problem = (props) => {
 
+  const apiBaseURL = "http://localhost:8000";
+
   let { logoutUser, accessToken } = useContext(AuthContext);
 
   const [noteModalOpen, setNoteModalOpen] = React.useState(false);
@@ -52,7 +54,7 @@ const Problem = (props) => {
   const [currCardColor, setCurrCardColor] = useState(props.currProblemStatus === '1' ? '#76FF7A' : 'white');
   
   const changeCurrProblemStatus = async (status) => {
-    let response = await fetch(`http://127.0.0.1:8000/api/problem-status/${props.problem.index}/${status}/`, {
+    let response = await fetch(`${apiBaseURL}/api/problem-status/${props.problem.index}/${status}/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -100,7 +102,7 @@ const Problem = (props) => {
       return;
     }
     let indexS = props.problem.index.toString();
-    let response = await fetch(`http://127.0.0.1:8000/api/problem-notes/${indexS}/`, {
+    let response = await fetch(`${apiBaseURL}/api/problem-notes/${indexS}/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

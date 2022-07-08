@@ -8,6 +8,8 @@ import AuthContext from "../context/AuthContext";
 
 export default function MyComponent() {
 
+  const apiBaseURL = "http://localhost:8000";
+
   const [feedback, setFeedback] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -19,7 +21,7 @@ export default function MyComponent() {
       return;
     }
     setFeedback(feedback);
-    let response = await fetch(`http://127.0.0.1:8000/api/submitFeedback/`, {
+    let response = await fetch(`${apiBaseURL}/api/submitFeedback/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

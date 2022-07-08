@@ -16,10 +16,13 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 const apiBaseURL = "http://localhost:8000";
 const appBaseURL = "http://localhost:3000";
 
+// 673674178296-e3tqgc59jb5r5ojopooc2ohd5tsaggi8.apps.googleusercontent.com
+// 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
+
 // Will be deprecated
-const googleClientId = '673674178296-u69af3bdvpoc06oqji8ht8niau7ooocv.apps.googleusercontent.com';
-const drfClientId = 'd36WcE0lMyg7mMDep9srtAlBzT94GYLbobHAkWCp';
-const drfClientSecret = '1Cgsn7mX4BN07Pc4mApWaxWUBLq0nLTIjEAG9aNVDWKhcED3hGcU1zZIk6aUriAFljARcgUg84ntF88tN2x9qf1VglPbmQ1HPEZlr8yirtYMQS1mRruICWoRUqvEkwAD';
+const googleClientId = 'YOUR_GOOGLE_CLIENT_ID';
+const drfClientId = 'YOUR_DRF_CLIENT_ID';
+const drfClientSecret = 'YOUR_DRF_PASS';
 
 const createErrorNotification = () => {
   alert("An Error Occurred!");
@@ -41,6 +44,7 @@ const LoginPage = () => {
   }, []);
 
   const handleGoogleLogin = (response) => {
+    console.log(response);
     setLoading(true);
     axios
       .post(`${apiBaseURL}/auth/convert-token`, {
@@ -55,8 +59,8 @@ const LoginPage = () => {
         const cookies = new Cookies();
         cookies.remove("google_access_token");
         cookies.remove("google_refresh_token");
-        cookies.set("google_access_token", access_token, {path: "/", maxAge: 24*60*60});
-        cookies.set("google_refresh_token", refresh_token, {path: "/", maxAge: 24*60*60});
+        cookies.set("google_access_token", access_token, {path: "/", maxAge: 24*60*60*60});
+        cookies.set("google_refresh_token", refresh_token, {path: "/", maxAge: 24*60*60*60});
         setLoading(false);
         window.location.href = `${appBaseURL}/`;
       })

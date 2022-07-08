@@ -22,6 +22,7 @@ export const AuthProvider = ({children}) => {
     const logoutUser = async() => {
         cookies.remove("google_access_token");
         cookies.remove("google_refresh_token");
+        // alert("Logout");
         navigate('/login');
     }
 

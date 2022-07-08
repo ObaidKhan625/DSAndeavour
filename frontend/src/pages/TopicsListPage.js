@@ -15,6 +15,8 @@ import Typography from '@mui/material/Typography';
 
 const TopicsListPage = () => {
 
+  const apiBaseURL = "http://localhost:8000";
+
   let { logoutUser, accessToken } = useContext(AuthContext);
 
   useEffect(() => {
@@ -42,7 +44,7 @@ const TopicsListPage = () => {
   const menuId = menuOpen ? 'simple-popover' : undefined;
 
   const getProblemStatus = async() => {
-    let response = await fetch('http://127.0.0.1:8000/api/problem-status/', {
+    let response = await fetch(`${apiBaseURL}/api/problem-status/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -74,13 +76,14 @@ const TopicsListPage = () => {
 
   const getPinnedTopics = async () => {
     // window.location.reload(false);
-    let response = await fetch('http://127.0.0.1:8000/api/pinned-topics/', { //FETCH THE STRING 0 AND 1
+    let response = await fetch(`${apiBaseURL}/api/pinned-topics/`, { //FETCH THE STRING 0 AND 1
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + String(accessToken),
       }
     });
+    console.log(`${apiBaseURL}/api/pinned-topics/`);
     if(response.statusText === 'Unauthorized') {
       logoutUser();
     }
