@@ -1,5 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import GoogleLogin from "react-google-login";
 import axios from "axios";
 import Button from '@mui/material/Button';
@@ -11,18 +10,13 @@ import googleLogo from '../assets/google-logo.png';
 import Footer from '../components/footer/Footer';
 import LoadingScreen from 'react-loading-screen';
 import Cookies from "universal-cookie";
-import AuthContext from '../context/AuthContext';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
-const apiBaseURL = "http://localhost:8000";
-const appBaseURL = "http://localhost:3000";
+const apiBaseURL = "your_api_url";
+const appBaseURL = "your_app_url";
 
-// 673674178296-e3tqgc59jb5r5ojopooc2ohd5tsaggi8.apps.googleusercontent.com
-// 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
-
-// Will be deprecated
-const googleClientId = 'YOUR_GOOGLE_CLIENT_ID';
-const drfClientId = 'YOUR_DRF_CLIENT_ID';
-const drfClientSecret = 'YOUR_DRF_PASS';
+const googleClientId = "your_google_client_id";
+const drfClientId = "your_drf_id";
+const drfClientSecret = "your_drf_pass";
 
 const createErrorNotification = () => {
   alert("An Error Occurred!");
@@ -33,18 +27,8 @@ const createErrorNotification = () => {
 const LoginPage = () => {
 
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const { accessToken } = useContext(AuthContext);
-  const authenticated = (accessToken ? true : false);
   
-  useEffect(() => {
-    if(authenticated) {
-      navigate('/');
-    }
-  }, []);
-
   const handleGoogleLogin = (response) => {
-    console.log(response);
     setLoading(true);
     axios
       .post(`${apiBaseURL}/auth/convert-token`, {
@@ -59,6 +43,8 @@ const LoginPage = () => {
         const cookies = new Cookies();
         cookies.remove("google_access_token");
         cookies.remove("google_refresh_token");
+        cookies.remove("topicsPinned");
+        cookies.remove("problemStatus");
         cookies.set("google_access_token", access_token, {path: "/", maxAge: 24*60*60*60});
         cookies.set("google_refresh_token", refresh_token, {path: "/", maxAge: 24*60*60*60});
         setLoading(false);
@@ -69,6 +55,17 @@ const LoginPage = () => {
         createErrorNotification();
       });
   };
+
+  const handleBrowsing = () => {
+    const cookies = new Cookies();
+    cookies.remove("google_access_token");
+    cookies.remove("google_refresh_token");
+    cookies.remove("topicsPinned");
+    cookies.remove("problemStatus");
+    cookies.set("topicsPinned", "0".repeat(31), {path: "/", maxAge: 30*60});
+    cookies.set("problemStatus", "0".repeat(195), {path: "/", maxAge: 30*60});
+    window.location.href = `${appBaseURL}/`;
+  }
 
   return (
     <div>
@@ -124,6 +121,24 @@ const LoginPage = () => {
               )}
               onFailure={(err) => console.log("Google Login failed", err)}
               />
+            </Grid>
+          </Grid> 
+          <Grid
+            container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Grid item xs={3} style={{'marginTop': '10px'}}>
+              <Button  onClick={handleBrowsing}
+              style={{'margin': '0 auto', 'display': 'flex', 'padding': '5px', 
+              'borderRadius': '5px'}}
+              sx={{ border: 1, borderColor: 'text.primary' }} >
+                <Typography style={{'color': 'black'}} fontSize="12px" textTransform = 'none'>
+                  <b>Nahh, just want to look around...</b>
+                </Typography>
+              </Button>
             </Grid>
           </Grid> 
           <Footer/>

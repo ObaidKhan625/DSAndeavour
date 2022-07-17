@@ -13,12 +13,22 @@ import Font from 'react-font';
 import AuthContext from "../context/AuthContext";
 import Typography from '@mui/material/Typography';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import Cookies from "universal-cookie";
 
 export default function Problem(props) {
 
-  const apiBaseURL = "http://localhost:8000";
+  const apiBaseURL = "your_api_url";
 
   let { logoutUser, accessToken } = useContext(AuthContext);
+  let authenticated = false;
+  const cookies = new Cookies();
+  var upNextProblemIndex = -1;
+  var totalDone = 0;
+  var totalProblems = 0;
+
+  if(accessToken) {
+    authenticated = true;
+  }
 
   const [currPinnedStatus, setCurrPinnedStatus] = useState(props.currPinnedStatus);
   
@@ -26,32 +36,63 @@ export default function Problem(props) {
     if(currPinnedStatus === '1') {
       return;
     }
-    let response = await fetch(`${apiBaseURL}/api/pinned-topics/${props.topic.index}/1/`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + String(accessToken),
+    if(authenticated) {
+      let response = await fetch(`${apiBaseURL}/api/pinned-topics/${props.topic.index}/1/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + String(accessToken),
+        }
+      });
+      if(response.statusText === 'Unauthorized') {
+        logoutUser();
       }
-    });
-    if(response.statusText === 'Unauthorized') {
-      logoutUser();
     }
-    // let responseJson = await response.json();
-    // setPinnedTopics(responseJson['topics_pinned']);
+    else {
+      let abc = cookies.get('topicsPinned');
+      let tempTopicsPinned = "";
+      for(let i = 0; i < 31; i++) {
+        if(props.index-'0' !== i) {
+          tempTopicsPinned += abc[i];
+        }
+        else {
+          tempTopicsPinned += '1';
+        }
+      }
+      cookies.remove('topicsPinned');
+      cookies.set('topicsPinned', tempTopicsPinned, {path: "/", maxAge: 30*60});
+    }
     setCurrPinnedStatus('1');
     await props.getPinnedTopics();
   };
 
   const unpinTopic  = async() => {
-     await fetch(`${apiBaseURL}/api/pinned-topics/${props.topic.index}/0/`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + String(accessToken),
+    if(authenticated) {
+      let response = await fetch(`${apiBaseURL}/api/pinned-topics/${props.topic.index}/0/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + String(accessToken),
+        }
+      });
+      if(response.statusText === 'Unauthorized') {
+        logoutUser();
       }
-    });
-    // let responseJson = await response.json();
-    // setPinnedTopics(responseJson['topics_pinned']);
+    }
+    else {
+      let abc = cookies.get('topicsPinned');
+      let tempTopicsPinned = "";
+      for(let i = 0; i < 31; i++) {
+        if(props.index-'0' !== i) {
+          tempTopicsPinned += abc[i];
+        }
+        else {
+          tempTopicsPinned += '0';
+        }
+      }
+      cookies.remove('topicsPinned');
+      cookies.set('topicsPinned', tempTopicsPinned, {path: "/", maxAge: 30*60});
+    }
     setCurrPinnedStatus('0');
     await props.getPinnedTopics();
   };
@@ -60,9 +101,7 @@ export default function Problem(props) {
     setCurrPinnedStatus(props.currPinnedStatus);
   }, [props.currPinnedStatus])
 
-  var upNextProblemIndex = -1;
-  var totalDone = 0;
-  var totalProblems = 0;
+
   if(props.topic.name === "ARRAYS 1") {
     for(let i = 0; i < 6; i++) {
       if(props.problem_status[i] === '1') {
@@ -407,7 +446,7 @@ export default function Problem(props) {
 
   return (
     <div data-aos="fade-up">
-      <Card variant="outlined">
+      <Card variant="outlined"  sx = {{ backgroundColor: totalDone===totalProblems?'#76FF7A':'white' }}>
         <CardHeader
           action={
             !props.loading ?
@@ -435,7 +474,11 @@ export default function Problem(props) {
         <CardContent>
           <Font family="Secular One">
             <b>Up Next</b><br />
-            {upNextProblemIndex === -1 ? "All Done!!!" : problems[upNextProblemIndex].name}
+            {
+              upNextProblemIndex === -1 ? 
+              "All Done!!!" :
+              problems[Math.max(0, upNextProblemIndex)].name
+            }
             <Typography color="green" align="right" fontFamily="Secular One" fontSize="30px">
               {totalDone}/{totalProblems}
             </Typography>

@@ -1,4 +1,4 @@
-import React, { useState, useContext} from "react";
+import React, { useState, useEffect, useContext} from "react";
 import { useNavigate } from 'react-router-dom';
 import { Container } from "@mui/system";
 import { Form, Button } from "react-bootstrap";
@@ -8,13 +8,26 @@ import AuthContext from "../context/AuthContext";
 
 export default function MyComponent() {
 
-  const apiBaseURL = "http://localhost:8000";
+  const apiBaseURL = "your_api_url";
+
+  let { logoutUser, accessToken } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  const checkAuthOrRedirect = () => {
+    if(!accessToken) {
+      alert("Please Login to give us feedback!");
+      navigate('/');
+    }
+  }
 
   const [feedback, setFeedback] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  let { logoutUser, accessToken } = useContext(AuthContext);
 
+  useEffect(() => {
+    checkAuthOrRedirect();
+  }, []);
+  
   const submitHandler = async() => {
     if(feedback === "") {
       setLoading(false);
@@ -32,6 +45,7 @@ export default function MyComponent() {
     if(response.statusText === 'Unauthorized') {
       logoutUser();
     }
+  
     setLoading(false);
     navigate('/');
   };

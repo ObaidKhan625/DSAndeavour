@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import Grid from "@mui/material/Grid";
 import Topic from "../components/Topic";
 import topics from "../assets/topics";
@@ -12,17 +13,29 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
+import Cookies from "universal-cookie";
 
 const TopicsListPage = () => {
 
-  const apiBaseURL = "http://localhost:8000";
+  const apiBaseURL = "your_api_url";
 
   let { logoutUser, accessToken } = useContext(AuthContext);
+  let authenticated = false;
+  const navigate = useNavigate();
+  const cookies = new Cookies();
+
+  if(accessToken) {
+    authenticated = true;
+  }
+  else if(!cookies.get('topicsPinned') || !cookies.get('problemStatus')) {
+    navigate('/login');
+  }
 
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
 
+  console.log(authenticated)
 
   const [problemStatus, setProblemStatus] = useState("");
   const [pinnedTopics, setPinnedTopics] = useState("");
@@ -44,24 +57,36 @@ const TopicsListPage = () => {
   const menuId = menuOpen ? 'simple-popover' : undefined;
 
   const getProblemStatus = async() => {
-    let response = await fetch(`${apiBaseURL}/api/problem-status/`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + String(accessToken),
+    if(authenticated) {
+      let response = await fetch(`${apiBaseURL}/api/problem-status/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + String(accessToken),
+        }
+      });
+      if(response.statusText === 'Unauthorized') {
+        logoutUser();
       }
-    });
-    if(response.statusText === 'Unauthorized') {
-      logoutUser();
-    }
-    let responseJson = await response.json();
-    setProblemStatus(responseJson['problem_status']);
-    for (let i = 0; i < 195; i++) {
-      if (problemStatus[i] === "1") {
-        problemDone += 1;
+      let responseJson = await response.json();
+      setProblemStatus(responseJson['problem_status']);
+      for (let i = 0; i < 195; i++) {
+        if (problemStatus[i] === "1") {
+          problemDone += 1;
+        }
       }
+      setProblemSolved(problemDone);
     }
-    setProblemSolved(problemDone);
+    else {
+      let tempProblemStatus = cookies.get('problemStatus');
+      setProblemStatus(tempProblemStatus);
+      for (let i = 0; i < 195; i++) {
+        if (tempProblemStatus[i] === "1") {
+          problemDone += 1;
+        }
+      }
+      setProblemSolved(problemDone);
+    }
     setLoading(false);
   }
 
@@ -75,27 +100,39 @@ const TopicsListPage = () => {
   }, [problemStatus]);
 
   const getPinnedTopics = async () => {
-    // window.location.reload(false);
-    let response = await fetch(`${apiBaseURL}/api/pinned-topics/`, { //FETCH THE STRING 0 AND 1
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + String(accessToken),
+    if(authenticated) {
+      let response = await fetch(`${apiBaseURL}/api/pinned-topics/`, { //FETCH THE STRING 0 AND 1
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + String(accessToken),
+        }
+      });
+      if(response.statusText === 'Unauthorized') {
+        logoutUser();
       }
-    });
-    console.log(`${apiBaseURL}/api/pinned-topics/`);
-    if(response.statusText === 'Unauthorized') {
-      logoutUser();
-    }
-    let responseJson = await response.json();
-    setPinnedTopics(responseJson['topics_pinned']);
-    var tempPinnedTopicsList = [];
-    for(var i = 0; i < 31; i++) {
-      if(responseJson['topics_pinned'][i] === '1') {
-        tempPinnedTopicsList.push(topics[i]);
+      let responseJson = await response.json();
+      setPinnedTopics(responseJson['topics_pinned']);
+      let tempPinnedTopicsList = [];
+      for(var i = 0; i < 31; i++) {
+        if(responseJson['topics_pinned'][i] === '1') {
+          tempPinnedTopicsList.push(topics[i]);
+        }
       }
+      setPinnedTopicsList(tempPinnedTopicsList);
     }
-    setPinnedTopicsList(tempPinnedTopicsList);
+    else {
+      const cookies = new Cookies();
+      let tempTopicsPinned = cookies.get('topicsPinned');
+      setPinnedTopics(tempTopicsPinned);
+      var tempPinnedTopicsList = [];
+      for (let i = 0; i < 31; i++) {
+        if (tempTopicsPinned[i] === "1") {
+          tempPinnedTopicsList.push(topics[i]);
+        }
+      }
+      setPinnedTopicsList(tempPinnedTopicsList);
+    }
     setLoading(false);
   };
 
@@ -115,7 +152,7 @@ const TopicsListPage = () => {
                 onClick={() => {
                   logoutUser();
                 }}>
-                  Logout
+                <b>{authenticated  ? 'Logout' : 'Sign in'}</b> 
                 </Button>
               </span>
               <span>PINNED</span>
@@ -147,7 +184,8 @@ const TopicsListPage = () => {
             {pinnedTopicsList.map((topic, index) => (
               <React.Fragment key={index}>
                 <Grid item xs={12} md={6} lg={4}>
-                  <Topic key={index} topic={topic} problem_status={problemStatus} currPinnedStatus={pinnedTopics[topic.index-'0']} 
+                  <Topic key={index} topic={topic} index={topic.index} problem_status={problemStatus}
+                  currPinnedStatus={pinnedTopics[topic.index-'0']} 
                   getPinnedTopics={getPinnedTopics} activateLoading={activateLoading} loading={loading} listType="pins"/>
                 </Grid>
               </React.Fragment>
@@ -173,8 +211,9 @@ const TopicsListPage = () => {
             {topics.map((topic, index) => (
               <React.Fragment key={index}>
                 <Grid item xs={12} md={6} lg={4}>
-                  <Topic key={index} topic={topic} problem_status={problemStatus} currPinnedStatus={pinnedTopics[index]} 
-                  getPinnedTopics={getPinnedTopics} activateLoading={activateLoading} loading={loading} listType="topics"/> 
+                  <Topic key={index} topic={topic} index={index} problem_status={problemStatus} 
+                  currPinnedStatus={pinnedTopics[index]} getPinnedTopics={getPinnedTopics} activateLoading={activateLoading} 
+                  loading={loading} listType="topics"/> 
                 </Grid>
               </React.Fragment>
             ))}

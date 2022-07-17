@@ -38,12 +38,12 @@ const AboutUsPage = () => {
 
         <Font family="Lobster">
           <Typography  color="black" fontFamily="Lobster" fontSize="25px" style={{'textAlign': 'center', 'paddingTop': '5vh'}}>
-            What is XYZ?
+            What is DSAndeavour?
           </Typography>
         </Font>
         <Font family="Acme">
           <Typography  color="black" fontSize="20px" fontFamily="Acme" style={{'paddingTop': '5vh'}}>
-          XYZ is a web application that easily lets you track your progress on the SDE sheet. One can solve problems, pin the
+          DSAndeavour is a web application that easily lets you track your progress on the SDE sheet. One can solve problems, pin the
           topics they'd like to focus on and create notes for revision. Hope you like it!
           </Typography>
         </Font>

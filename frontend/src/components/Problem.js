@@ -21,6 +21,7 @@ import Fade from '@mui/material/Fade';
 import CheckIcon from '@mui/icons-material/Check';
 import TextField from '@mui/material/TextField';
 import CancelIcon from "@mui/icons-material/Cancel";
+import Cookies from 'universal-cookie';
 
 const noteModalStyle = {
   position: 'absolute',
@@ -36,11 +37,18 @@ const noteModalStyle = {
 
 const Problem = (props) => {
 
-  const apiBaseURL = "http://localhost:8000";
+  const apiBaseURL = "your_api_url";
 
   let { logoutUser, accessToken } = useContext(AuthContext);
+  let authenticated = false;
+  const cookies = new Cookies();
+
+  if(accessToken) {
+    authenticated = true;
+  }
 
   const [noteModalOpen, setNoteModalOpen] = React.useState(false);
+  // const [clearNow, setClearNow] = useState(props.clear);
   const handleNoteModalOpen = () => {
     setNoteModalOpen(true);
   }
@@ -54,15 +62,31 @@ const Problem = (props) => {
   const [currCardColor, setCurrCardColor] = useState(props.currProblemStatus === '1' ? '#76FF7A' : 'white');
   
   const changeCurrProblemStatus = async (status) => {
-    let response = await fetch(`${apiBaseURL}/api/problem-status/${props.problem.index}/${status}/`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + String(accessToken),
+    if(authenticated) {
+      let response = await fetch(`${apiBaseURL}/api/problem-status/${props.problem.index}/${status}/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + String(accessToken),
+        }
+      });
+      if(response.statusText === 'Unauthorized') {
+        logoutUser();
       }
-    });
-    if(response.statusText === 'Unauthorized') {
-      logoutUser();
+    }
+    else {
+      let abc = cookies.get('problemStatus');
+      let tempProblemStatus = "";
+      for(let i = 0; i < 195; i++) {
+        if(props.problem.index-'0' !== i) {
+          tempProblemStatus += abc[i];
+        }
+        else {
+          tempProblemStatus += status;
+        }
+      }
+      cookies.remove('problemStatus');
+      cookies.set('problemStatus', tempProblemStatus, {path: "/", maxAge: 30*60});
     }
     props.deactivateLoading();
   }
@@ -74,7 +98,7 @@ const Problem = (props) => {
       changeCurrProblemStatus('1');
       setCurrCardColor('#76FF7A');
       swal({
-        title: "SUCCESS",
+        title: "Done!",
         text: "Marked As Done!",
         icon: "success",
         dangerMode: true,
@@ -87,7 +111,7 @@ const Problem = (props) => {
       changeCurrProblemStatus('0');
       setCurrCardColor('white');
       swal({
-        title: "STATUS",
+        title: "Done!",
         text: "Marked As Incomplete!",
         icon: "error",
         dangerMode: true,
@@ -98,20 +122,22 @@ const Problem = (props) => {
   };
 
   const updateProblemNote = async() => {
-    if(noteContent === undefined) {
-      return;
-    }
-    let indexS = props.problem.index.toString();
-    let response = await fetch(`${apiBaseURL}/api/problem-notes/${indexS}/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + String(accessToken),
-      },
-      body: JSON.stringify({problem_note: noteContent})
-    });
-    if(response.statusText === 'Unauthorized') {
-      logoutUser();
+    if(authenticated) {
+      if(noteContent === undefined) {
+        return;
+      }
+      let indexS = props.problem.index.toString();
+      let response = await fetch(`${apiBaseURL}/api/problem-notes/${indexS}/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + String(accessToken),
+        },
+        body: JSON.stringify({problem_note: noteContent})
+      });
+      if(response.statusText === 'Unauthorized') {
+        logoutUser();
+      }
     }
   }
 
@@ -123,7 +149,12 @@ const Problem = (props) => {
     else {
       setCurrCardColor('white');
     }
-  }, [props.currProblemStatus])
+  }, [props.currProblemStatus]);
+
+  useEffect(() => {
+    setCurrProblemStatus('0');
+    setCurrCardColor('white');
+  }, [props.clear])
 
   return (
     <div  data-aos="fade-up">
