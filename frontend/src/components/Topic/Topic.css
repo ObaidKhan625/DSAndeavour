@@ -1,0 +1,7 @@
+.topic__card {
+    min-height: 260px;
+    border-radius: 25px !important;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-evenly;
+}

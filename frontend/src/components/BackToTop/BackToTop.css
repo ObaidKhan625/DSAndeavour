@@ -1,0 +1,18 @@
+.back_to_top {
+    width: 50px;
+    height: 60px;
+    position: sticky !important;
+    border: 1px solid transparent !important;
+    border-radius: 50% !important;
+    bottom: 2%;
+    left: 90%;
+    background-color: #1266f1 !important;
+}
+
+.back_to_top svg {
+    color: #fff;
+}
+
+.back_to_top:hover {
+    background-color: #0e52c1 !important;
+}
