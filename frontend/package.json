@@ -28,6 +28,7 @@
     "react-icons": "^4.4.0",
     "react-loading-screen": "^0.0.17",
     "react-notifications": "^1.7.3",
+    "react-responsive": "^9.0.0-beta.10",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "react-spinners": "^0.12.0",

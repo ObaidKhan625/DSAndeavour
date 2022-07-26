@@ -15,8 +15,8 @@ const apiBaseURL = "your_api_url";
 const appBaseURL = "your_app_url";
 
 const googleClientId = "your_google_client_id";
-const drfClientId = "your_drf_id";
-const drfClientSecret = "your_drf_pass";
+const drfClientId = "your_drf_client_id";
+const drfClientSecret = "your_drf_client_pass";
 
 const createErrorNotification = () => {
   alert("An Error Occurred!");

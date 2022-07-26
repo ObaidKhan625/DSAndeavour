@@ -85,7 +85,7 @@ let problems = [
     {
         'name':'Repeat and Missing Number',
         'index':'10',
-        'link1':'https://bit.ly/339fFb7',
+        'link1':'https://bit.ly/3Gs6wZu',
         'link2':'https://www.interviewbit.com/problems/repeat-and-missing-number-array/',
         'yt':'https://www.youtube.com/watch?v=5nMGY4VUoRY&list=PLgUwDviBIf0rPG3Ictpu74YWBQ1CaBkm2',
         'info':'https://takeuforward.org/data-structure/find-the-repeating-and-missing-numbers/'

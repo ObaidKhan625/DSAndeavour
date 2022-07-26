@@ -1,0 +1,8 @@
+@media (min-width: 461px) {
+    .problem__card {
+        min-height: 220px;
+        display: flex;
+        flex-flow: column;
+        justify-content: space-evenly;
+    }
+}
