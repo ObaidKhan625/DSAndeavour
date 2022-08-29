@@ -7,3 +7,11 @@ pin the topics they’d like to focus on and create notes for revision.<br>
 • Currently, there have been 40,000+ visits and 8000+ unique users.<br>
 
 http://dsandeavour.el.r.appspot.com/
+
+## Acknowledgments
+
+Huge Thanks to [Raj Vikramaditya](https://www.linkedin.com/in/rajarvp/) for the amazing SDE Sheet!
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
