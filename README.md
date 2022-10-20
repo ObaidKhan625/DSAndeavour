@@ -3,10 +3,12 @@
 Tech Stack used for building this website:
 <hr/>
 For Frontend:
-<img alt="React" src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB"/> | <img alt="Material UI" src="https://img.shields.io/badge/materialui-%230081CB.svg?style=for-the-badge&logo=material-ui&logoColor=white"/>
+
+<img alt="React" src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB"/> <img alt="Material UI" src="https://img.shields.io/badge/materialui-%230081CB.svg?style=for-the-badge&logo=material-ui&logoColor=white"/>
 
 For Backend:
-<img alt="DjangoREST" src="https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray"/> | <img alt="Postgres" src ="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white"/> 
+
+<img alt="DjangoREST" src="https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray"/> <img alt="Postgres" src ="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white"/> 
 
 
 • DSAndeavour is a web application that easily lets you track your progress on the SDE sheet. One can solve problems,
@@ -22,12 +24,12 @@ Checkout Website: http://dsandeavour.el.r.appspot.com/
 View Code Output:
 </summary>
 Login/SignUp Page:
-
+<br/>
 <img src="readme-ss/output-1.png"/>
 Home Page:
-
+<br/>
 <img src="readme-ss/output-2.png"/>
-
+<br/>
 <img src="readme-ss/output-3.png"/>
 
 </details>
