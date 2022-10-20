@@ -1,7 +1,7 @@
 # DSAndeavour
 
 Tech Stack used for building this website:
-<hr/>
+
 For Frontend:
 
 <img alt="React" src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB"/> <img alt="Material UI" src="https://img.shields.io/badge/materialui-%230081CB.svg?style=for-the-badge&logo=material-ui&logoColor=white"/>
@@ -21,15 +21,14 @@ Checkout Website: http://dsandeavour.el.r.appspot.com/
 
 <details>
 <summary>
-View Code Output:
+Website Preview
 </summary>
+  <hr/>
 Login/SignUp Page:
-<br/>
+  <hr/>
 <img src="readme-ss/output-1.png"/>
-Home Page:
-<br/>
-<img src="readme-ss/output-2.png"/>
-<br/>
+Home Page:<hr/>
+<img src="readme-ss/output-2.png"/><hr/>
 <img src="readme-ss/output-3.png"/>
 
 </details>
