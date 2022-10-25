@@ -26,6 +26,8 @@
 }
 .footer-link:hover{
     color: #219653;
+    cursor: pointer;
+    transform: scale(1.05);
 }
 .footer-logo{
     height: 5em;
