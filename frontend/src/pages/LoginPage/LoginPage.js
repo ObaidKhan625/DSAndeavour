@@ -129,6 +129,7 @@ const LoginPage = () => {
                 onSuccess={(response) => handleGoogleLogin(response)}
                 render={(renderProps) => (
                   <Button
+                    className="login_btn_hv"
                     onClick={renderProps.onClick}
                     disabled={renderProps.disabled}
                     style={{
@@ -167,6 +168,7 @@ const LoginPage = () => {
           >
             <Grid item xs={3} style={{ marginTop: "10px" }}>
               <Button
+                className="login_btn_hv"
                 onClick={handleBrowsing}
                 style={{
                   margin: "0 auto",
