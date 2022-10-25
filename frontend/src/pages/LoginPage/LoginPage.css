@@ -9,3 +9,8 @@
         padding-top: 140px !important;
     }
 }
+
+.login_btn_hv:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
