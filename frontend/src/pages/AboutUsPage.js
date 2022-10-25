@@ -2,10 +2,13 @@ import React from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Font from 'react-font';
+import './AboutUs.css'
 
 const AboutUsPage = () => {
   return (
-    <div>
+    <div style={
+      {'textAlign':'justify'}
+    }>
       <Container style={{'backgroundColor': 'rgba(255, 255, 255, 0.2)', 
       'height': '100vh', 'boxShadow': '0 4px 30px rgba(0, 0, 0, 0.1)', 'paddingTop': '5vh'}}>
         <Font family="Lobster">
@@ -36,7 +39,7 @@ const AboutUsPage = () => {
           </Typography>
         </Font>
 
-        <Font family="Lobster">
+        <Font className="dsa_div_res" family="Lobster">
           <Typography  color="black" fontFamily="Lobster" fontSize="25px" style={{'textAlign': 'center', 'paddingTop': '5vh'}}>
             What is DSAndeavour?
           </Typography>
