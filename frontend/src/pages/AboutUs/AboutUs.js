@@ -3,7 +3,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Font from 'react-font';
 
-const AboutUsPage = () => {
+const AboutUs = () => {
   return (
     <div>
       <Container style={{'backgroundColor': 'rgba(255, 255, 255, 0.2)', 
@@ -62,4 +62,4 @@ const AboutUsPage = () => {
   )
 }
 
-export default AboutUsPage;
+export default AboutUs;

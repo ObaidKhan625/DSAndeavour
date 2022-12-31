@@ -8,9 +8,8 @@ export default AuthContext;
 
 export const AuthProvider = ({children}) => {
     const cookies = new Cookies();
-    const tokenExists = cookies.get('google_access_token') ? true : false;
-    let accessToken = tokenExists ? cookies.get('google_access_token') : null;
-    let refreshToken = tokenExists ? cookies.get('google_refresh_token') : null;
+    const tokenExists = cookies.get('dsandeavour_access_token') ? true : false;
+    const accessToken = tokenExists ? cookies.get('dsandeavour_access_token') : null;
 
     const navigate = useNavigate();
 
@@ -20,10 +19,9 @@ export const AuthProvider = ({children}) => {
     }
 
     const logoutUser = async() => {
-        cookies.remove("google_access_token");
-        cookies.remove("google_refresh_token");
-        cookies.remove("topicsPinned");
-        cookies.remove("problemStatus");
+        cookies.remove("dsandeavour_access_token");
+        cookies.remove("dsandeavour_username");
+        cookies.remove("dsandeavour_picture");
         navigate('/login');
     }
 
@@ -32,7 +30,6 @@ export const AuthProvider = ({children}) => {
         logoutUser: logoutUser,
         tokenExists: tokenExists,
         accessToken: accessToken,
-        refreshToken: refreshToken,
     }
 
     return(

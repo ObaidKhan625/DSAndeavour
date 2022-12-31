@@ -22,10 +22,10 @@ import Typography from "@mui/material/Typography";
 import Cookies from "universal-cookie";
 import LoadingScreen from "react-loading-screen";
 import BackToTop from "../../components/BackToTop/BackToTop";
-import "./TopicsQuestionsPage.css";
+import "./TopicsQuestions.css";
 
-const TopicsQuestionsPage = () => {
-  const apiBaseURL = "your_api_url";
+const TopicsQuestions = () => {
+  const apiBaseURL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     Aos.init({ duration: 2000 });
@@ -41,11 +41,11 @@ const TopicsQuestionsPage = () => {
 
   if (accessToken) {
     authenticated = true;
-  } else if (!cookies.get("topicsPinned") || !cookies.get("problemStatus")) {
+  } else if (!cookies.get("dsandeavour_topics_pinned") || !cookies.get("dsandeavour_problem_status")) {
     navigate("/login");
   }
 
-  const problemStatusCookie = authenticated ? "" : cookies.get("problemStatus");
+  const problemStatusCookie = authenticated ? "" : cookies.get("dsandeavour_problem_status");
 
   var problems = [];
 
@@ -69,6 +69,7 @@ const TopicsQuestionsPage = () => {
   const menuId = menuOpen ? "simple-popover" : undefined;
 
   let getProblemStatusAndNotes = async () => {
+    console.log("Status and Notes");
     let problemStatusResponseJson;
     let problemNotesResponseJson;
     if (authenticated) {
@@ -708,6 +709,7 @@ const TopicsQuestionsPage = () => {
   }
 
   const clearAll = async () => {
+    console.log("Clear All");
     if (authenticated) {
       setClearLoading(true);
       if (topicName === "ARRAYS 1") {
@@ -1074,7 +1076,7 @@ const TopicsQuestionsPage = () => {
       <div>
         <LoadingScreen
           loading={clearLoading}
-          bgColor="linear-gradient(to right, #f64f59, #c471ed, #12c2e9);"
+          bgColor="linear-gradient(to right, #ffc3a0, #ffafbd);"
           spinnerColor="#9ee5f8"
           textColor="black"
           text="Please Wait"
@@ -1227,4 +1229,4 @@ const TopicsQuestionsPage = () => {
   );
 };
 
-export default TopicsQuestionsPage;
+export default TopicsQuestions;

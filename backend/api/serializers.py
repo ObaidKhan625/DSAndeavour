@@ -15,3 +15,7 @@ class ProblemNotesSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['problems_notes']
+
+class AuthSerializer(serializers.Serializer):
+    code = serializers.CharField(required=False)
+    error = serializers.CharField(required=False)

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import problems from "../../assets/problems";
@@ -17,7 +17,7 @@ import Cookies from "universal-cookie";
 // import "./Topic.css";
 
 export default function Problem(props) {
-  const apiBaseURL = "your_api_url";
+  const apiBaseURL = process.env.REACT_APP_API_URL;
 
   let { logoutUser, accessToken } = useContext(AuthContext);
   let authenticated = false;
@@ -30,12 +30,9 @@ export default function Problem(props) {
     authenticated = true;
   }
 
-  const [currPinnedStatus, setCurrPinnedStatus] = useState(
-    props.currPinnedStatus
-  );
-
   const pinTopic = async () => {
-    if (currPinnedStatus === "1") {
+    console.log("Pin");
+    if (props.pinnedTopics[props.index] === "1") {
       return;
     }
     if (authenticated) {
@@ -52,8 +49,10 @@ export default function Problem(props) {
       if (response.statusText === "Unauthorized") {
         logoutUser();
       }
+      response = await response.json();
+      props.setPinnedTopics(response.topics_pinned);
     } else {
-      let abc = cookies.get("topicsPinned");
+      let abc = cookies.get("dsandeavour_topics_pinned");
       let tempTopicsPinned = "";
       for (let i = 0; i < 31; i++) {
         if (props.index - "0" !== i) {
@@ -62,17 +61,18 @@ export default function Problem(props) {
           tempTopicsPinned += "1";
         }
       }
-      cookies.remove("topicsPinned");
-      cookies.set("topicsPinned", tempTopicsPinned, {
+      cookies.remove("dsandeavour_topics_pinned");
+      cookies.set("dsandeavour_topics_pinned", tempTopicsPinned, {
         path: "/",
         maxAge: 30 * 60,
       });
+      props.setPinnedTopics(tempTopicsPinned);
     }
-    setCurrPinnedStatus("1");
-    await props.getPinnedTopics();
+    props.deactivateLoading();
   };
 
   const unpinTopic = async () => {
+    console.log("Unpin");
     if (authenticated) {
       let response = await fetch(
         `${apiBaseURL}/api/pinned-topics/${props.topic.index}/0/`,
@@ -87,8 +87,10 @@ export default function Problem(props) {
       if (response.statusText === "Unauthorized") {
         logoutUser();
       }
+      response = await response.json();
+      props.setPinnedTopics(response.topics_pinned);
     } else {
-      let abc = cookies.get("topicsPinned");
+      let abc = cookies.get("dsandeavour_topics_pinned");
       let tempTopicsPinned = "";
       for (let i = 0; i < 31; i++) {
         if (props.index - "0" !== i) {
@@ -97,20 +99,20 @@ export default function Problem(props) {
           tempTopicsPinned += "0";
         }
       }
-      cookies.remove("topicsPinned");
-      cookies.set("topicsPinned", tempTopicsPinned, {
+      cookies.remove("dsandeavour_topics_pinned");
+      cookies.set("dsandeavour_topics_pinned", tempTopicsPinned, {
         path: "/",
         maxAge: 30 * 60,
       });
+      props.setPinnedTopics(tempTopicsPinned);
     }
-    setCurrPinnedStatus("0");
-    await props.getPinnedTopics();
+    props.deactivateLoading();
   };
 
-  useEffect(() => {
-    setCurrPinnedStatus(props.currPinnedStatus);
-  }, [props.currPinnedStatus]);
-
+  // useEffect(() => {
+  //   setCurrPinnedStatus(props.currPinnedStatus);
+  // }, [props.currPinnedStatus]);
+  
   if (props.topic.name === "ARRAYS 1") {
     for (let i = 0; i < 6; i++) {
       if (props.problem_status[i] === "1") {
@@ -437,7 +439,7 @@ export default function Problem(props) {
               <IconButton
                 aria-label="settings"
                 onClick={(e) => {
-                  if (currPinnedStatus === "0" && props.listType === "topics") {
+                  if (props.pinnedTopics[props.index] === "0" && props.listType === "topics") {
                     props.activateLoading();
                     pinTopic(props.topic);
                   } else {
@@ -446,11 +448,12 @@ export default function Problem(props) {
                   }
                 }}
               >
-                {currPinnedStatus === "0" && props.listType === "topics" ? (
+                {props.pinnedTopics[props.index] === "0" && props.listType === "topics" ? (
                   <BookmarkAddIcon />
                 ) : (
                   <BookmarkRemoveIcon />
                 )}
+                {/* <BookmarkAddIcon /> */}
               </IconButton>
             ) : (
               <BookmarkBorderIcon />

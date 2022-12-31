@@ -53,7 +53,7 @@ const linksModalStyle = {
 };
 
 const Problem = (props) => {
-  const apiBaseURL = "your_api_url";
+  const apiBaseURL = process.env.REACT_APP_API_URL;
 
   let { logoutUser, accessToken } = useContext(AuthContext);
   let authenticated = false;
@@ -93,6 +93,7 @@ const Problem = (props) => {
   );
 
   const changeCurrProblemStatus = async (status) => {
+    console.log("Change Status");
     if (authenticated) {
       let response = await fetch(
         `${apiBaseURL}/api/problem-status/${props.problem.index}/${status}/`,
@@ -108,7 +109,7 @@ const Problem = (props) => {
         logoutUser();
       }
     } else {
-      let abc = cookies.get("problemStatus");
+      let abc = cookies.get("dsandeavour_problem_status");
       let tempProblemStatus = "";
       for (let i = 0; i < 195; i++) {
         if (props.problem.index - "0" !== i) {
@@ -117,8 +118,8 @@ const Problem = (props) => {
           tempProblemStatus += status;
         }
       }
-      cookies.remove("problemStatus");
-      cookies.set("problemStatus", tempProblemStatus, {
+      cookies.remove("dsandeavour_problem_status");
+      cookies.set("dsandeavour_problem_status", tempProblemStatus, {
         path: "/",
         maxAge: 30 * 60,
       });
@@ -156,6 +157,7 @@ const Problem = (props) => {
   };
 
   const updateProblemNote = async () => {
+    console.log("Update Note");
     if (authenticated) {
       if (noteContent === undefined) {
         return;
@@ -299,6 +301,7 @@ const Problem = (props) => {
                 inputProps={{ "aria-label": "controlled" }}
                 color="success"
               />
+              {
               noteStatus? 
                 <IconButton
                   variant="outline-success"
@@ -313,6 +316,7 @@ const Problem = (props) => {
                 >
                   <StickyNote2OutlinedIcon />
                 </IconButton>
+            }
             </Stack>
           }
         </CardActions>

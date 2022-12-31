@@ -12,7 +12,6 @@ class User(AbstractUser):
 		return str(self.username)
 	
 	def save(self, *args, **kwargs):
-		# self.problem_status = '0'*350
 		super(User, self).save(*args, **kwargs)
 
 class Feedback(models.Model):

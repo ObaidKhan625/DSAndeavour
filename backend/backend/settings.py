@@ -20,13 +20,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 AUTH_USER_MODEL = 'api.User'
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'Insecure'
+SECRET_KEY = 'Your Secret Key'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
-
+CSRF_TRUSTED_ORIGINS = ['*']
 
 # Application definition
 
@@ -40,9 +40,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'api',
-    'oauth2_provider',
-    'social_django',
-    'drf_social_oauth2',
 ]
 
 MIDDLEWARE = [
@@ -87,49 +84,13 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'db_name',
-        'USER': 'user_name',
-        'PASSWORD': 'Pass',
+        'NAME': 'your_db',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres123',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '5432',
     }
 }
-
-OAUTH2_PROVIDER = {
-    'ACCESS_TOKEN_EXPIRE_SECONDS': 60 * 60 * 24 * 60,
-    'OAUTH_SINGLE_ACCESS_TOKEN': True,
-    'OAUTH_DELETE_EXPIRED': True
-}
-
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': [
-#         'rest_framework_simplejwt.authentication.JWTAuthentication',
-#     ]
-# }
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-        'drf_social_oauth2.authentication.SocialAuthentication',
-    ),
-}
-
-AUTHENTICATION_BACKENDS = (
-    # Google OAuth2
-    'social_core.backends.google.GoogleOAuth2',
-
-    # drf-social-oauth2
-    'drf_social_oauth2.backends.DjangoOAuth2',
-
-    # Django
-    'django.contrib.auth.backends.ModelBackend',
-)
-
-# Define SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE to get extra permissions from Google.
-# SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
-#     'https://www.googleapis.com/auth/userinfo.email',
-#     'https://www.googleapis.com/auth/userinfo.profile',
-# ]
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -182,3 +143,11 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+BASE_APP_URL = "http://localhost:3000"
+
+BASE_API_URL = "http://localhost:8000"
+
+GOOGLE_OAUTH2_CLIENT_ID = "your_client_id"
+
+GOOGLE_OAUTH2_CLIENT_SECRET = "your_client_secret"
