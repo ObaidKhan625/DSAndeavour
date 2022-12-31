@@ -19,19 +19,6 @@ pin the topics they’d like to focus on and create notes for revision.<br>
 
 Checkout Website: https://dsandeavour.netlify.app/
 
-<details>
-<summary>w
-Website Preview
-</summary>
-  <hr/>
-Login/SignUp Page:
-  <hr/>
-<img src="readme-ss/output-1.png"/>
-Home Page:<hr/>
-<img src="readme-ss/output-2.png"/><hr/>
-<img src="readme-ss/output-3.png"/>
-</details>
-
 ## Acknowledgments
 
 Huge Thanks to [Raj Vikramaditya](https://www.linkedin.com/in/rajarvp/) for the amazing SDE Sheet!
