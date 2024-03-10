@@ -93,7 +93,6 @@ const Problem = (props) => {
   );
 
   const changeCurrProblemStatus = async (status) => {
-    console.log("Change Status");
     if (authenticated) {
       let response = await fetch(
         `${apiBaseURL}/api/problem-status/${props.problem.index}/${status}/`,

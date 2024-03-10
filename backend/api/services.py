@@ -39,7 +39,7 @@ def createJwtToken(validated_data):
         'last_name': user_data.get('family_name'),
     }
 
-    jwt_token = jwt.encode(profile_data, settings.SECRET_KEY, algorithm="HS256").decode('utf-8')
+    jwt_token = jwt.encode(profile_data, settings.SECRET_KEY, algorithm="HS256")
 
     return user_data, jwt_token
 
@@ -48,7 +48,6 @@ def google_get_user_info(*, access_token: str) -> Dict[str, Any]:
         GOOGLE_USER_INFO_URL,
         params={'access_token': access_token}
     )
-
     if not response.ok:
         raise ValidationError('Failed to obtain user info from Google.')
     
@@ -72,7 +71,7 @@ def google_get_access_token(*, code: str, redirect_uri: str) -> str:
     return access_token
 
 def validateJwtToken(jwt_token):
-    return jwt.decode(jwt_token, 'Insecure', algorithms=["HS256"])
+    return jwt.decode(jwt_token, 'Your Secret Key', algorithms=["HS256"])
 
 def getUserData(request):
     jwt_data = validateJwtToken(request.headers.get('Authorization').split(' ')[1])

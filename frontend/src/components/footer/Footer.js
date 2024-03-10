@@ -14,7 +14,6 @@ function Footer(props) {
           <div className="footer-repo">
             <a
               target="_blank"
-              rel="noopener noreferrer"
               className={"footer-link"}
               href="https://github.com/ObaidKhan625/Striver_Sheet_Tracker"
             >
@@ -26,8 +25,19 @@ function Footer(props) {
 
           <div className="footer-repo">
             <a
+                target="_blank"
+                className={"footer-link"}
+                href="https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/"
+            >
+              <div className={"footer-div-small"}>
+                <b> ORIGINAL SHEET 📝</b>
+              </div>
+            </a>
+          </div>
+
+          <div className="footer-repo">
+            <a
               target="_blank"
-              rel="noopener noreferrer"
               className={"footer-link"}
               href="/about"
             >

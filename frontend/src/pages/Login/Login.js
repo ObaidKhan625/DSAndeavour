@@ -23,6 +23,8 @@ const Login = () => {
 
   useEffect(() => {
     const cookies = new Cookies();
+    cookies.remove("dsandeavour_topics_pinned");
+    cookies.remove("dsandeavour_problem_status");
     if(cookies.get("dsandeavour_access_token")) {
       navigate('/');
     }
@@ -30,8 +32,7 @@ const Login = () => {
 
   const handleBrowsing = () => {
     const cookies = new Cookies();
-    cookies.remove("google_access_token");
-    cookies.remove("google_refresh_token");
+    cookies.remove("dsandeavour_access_token");
     cookies.remove("dsandeavour_topics_pinned");
     cookies.remove("dsandeavour_problem_status");
     cookies.set("dsandeavour_topics_pinned", "0".repeat(31), { 
@@ -71,12 +72,8 @@ const Login = () => {
           access_type: 'offline',
           scope
         };
-        console.log(apiBaseURL);
-        console.log(redirectUri);
-        console.log(googleAuthUrl);
         const urlParams = new URLSearchParams(params).toString();
         setLoading(false);
-        alert("Hi");
         window.location = `${googleAuthUrl}?${urlParams}`;
       }
     )
@@ -128,7 +125,6 @@ const Login = () => {
             <GoogleButton
               onClick={onGoogleLoginSuccess}
               label="Sign in with Google"
-              disabled={!googleClientId}
             />
             </Grid>
           </Grid>

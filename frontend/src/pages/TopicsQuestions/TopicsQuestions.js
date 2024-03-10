@@ -23,6 +23,26 @@ import Cookies from "universal-cookie";
 import LoadingScreen from "react-loading-screen";
 import BackToTop from "../../components/BackToTop/BackToTop";
 import "./TopicsQuestions.css";
+import ReactRoundedImage from "react-rounded-image";
+import Backdrop from "@mui/material/Backdrop";
+import Fade from "@mui/material/Fade";
+import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
+import CancelIcon from "@mui/icons-material/Cancel";
+import CheckIcon from "@mui/icons-material/Check";
+import Modal from "@mui/material/Modal";
+
+const feedbackModalStyle = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 const TopicsQuestions = () => {
   const apiBaseURL = process.env.REACT_APP_API_URL;
@@ -39,6 +59,9 @@ const TopicsQuestions = () => {
   const params = useParams();
   const topicName = params.topicName;
 
+  const picture = cookies.get('dsandeavour_picture');
+  const smallPicture = useMediaQuery({ query: '(max-width: 550px)' });
+
   if (accessToken) {
     authenticated = true;
   } else if (!cookies.get("dsandeavour_topics_pinned") || !cookies.get("dsandeavour_problem_status")) {
@@ -53,8 +76,48 @@ const TopicsQuestions = () => {
   const [problemNotesList, setProblemNotesList] = useState([]);
   const [clear, setClear] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
+  const [feedbackContent, setFeedbackContent] = useState("");
   const [clearLoading, setClearLoading] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleFeedbackModalOpen = () => {
+    setFeedbackModalOpen(true);
+  };
+
+  const handleFeedbackModalClose = () => {
+    setFeedbackModalOpen(false);
+  };
+
+  const handleFeedbackChange = (text) => {
+    setFeedbackContent(text);
+  }
+
+  const handleFeedback = async () => {
+    if (authenticated) {
+      if (feedbackContent === undefined || feedbackContent === "") {
+        return;
+      }
+      console.log("Submit Feedback");
+      let response = await fetch(`${apiBaseURL}/api/submitFeedback/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + String(accessToken),
+        },
+        body: JSON.stringify({ feedback: feedbackContent }),
+      });
+      if (response.statusText === "Unauthorized") {
+        logoutUser();
+      }
+      else {
+        alert("Your feedback has been recorded");
+      }
+    }
+    else {
+      alert("You need to sign in to provide feedback :)");
+    }
+  };
   
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -69,7 +132,6 @@ const TopicsQuestions = () => {
   const menuId = menuOpen ? "simple-popover" : undefined;
 
   let getProblemStatusAndNotes = async () => {
-    console.log("Status and Notes");
     let problemStatusResponseJson;
     let problemNotesResponseJson;
     if (authenticated) {
@@ -1114,66 +1176,106 @@ const TopicsQuestions = () => {
                 size={40}
               />
               <span style={{ float: "right" }}>
-                <IconButton
-                  aria-label="settings"
-                  size="large"
-                  style={{
-                    backgroundColor: "blue",
-                    marginRight: "2vh",
-                    color: "white",
-                  }}
-                  onClick={handleMenuClick}
-                >
-                  <MenuIcon />
-                </IconButton>
-                <Popover
-                  id={menuId}
-                  open={menuOpen}
-                  anchorEl={anchorEl}
-                  onClose={handleMenuClose}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left",
-                  }}
-                >
-                  <Typography sx={{ p: 2 }}>
-                    <a target="_blank" rel="noopener noreferrer" href="/about">
-                      About Us
-                    </a>
-                  </Typography>
-                  <Typography sx={{ p: 2 }}>
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href="/feedback"
-                    >
-                      Feedback
-                    </a>
-                  </Typography>
-                  <Typography sx={{ p: 2 }}>
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href="https://github.com/ObaidKhan625/Striver_Sheet_Tracker"
-                    >
-                      Contribute
-                    </a>
-                  </Typography>
-                  {smallScreen &&
-                  <Typography sx={{ p: 2 }}>
-                    <Button
-                      onClick={() => {
-                        logoutUser();
-                      }}
-                    >
-                      <b>{authenticated ? "LOGOUT" : "SIGN-IN"}</b>
-                    </Button>
-                  </Typography>
+                  {
+                    authenticated?
+                        <span onClick={handleMenuClick} style={{ marginRight: '10vh', cursor: 'pointer' }}>
+                      <ReactRoundedImage image={picture} roundedSize="0"
+                                         imageWidth={smallPicture ? "40" : "60"} imageHeight={smallPicture ? "40" : "60"} />
+                    </span>
+                        :
+                        <IconButton
+                            aria-label="settings"
+                            size="large"
+                            style={{
+                              backgroundColor: "blue",
+                              marginRight: "6vh",
+                              color: "white",
+                            }}
+                            onClick={handleMenuClick}
+                        >
+                          <MenuIcon />
+                        </IconButton>
                   }
-                </Popover>
-              </span>
+                <Popover
+                    id={menuId}
+                    open={menuOpen}
+                    anchorEl={anchorEl}
+                    onClose={handleMenuClose}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "left",
+                    }}
+                >
+                    <Typography sx={{ p: 2 }}>
+                      <a target="_blank" href="/about">
+                        About Us
+                      </a>
+                    </Typography>
+                    <Typography sx={{ p: 2, color:'blue', cursor: 'pointer' }} onClick={handleFeedbackModalOpen}>
+                      Feedback
+                    </Typography>
+                    <Typography sx={{ p: 2 }}>
+                      <a
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href="https://github.com/ObaidKhan625/Striver_Sheet_Tracker"
+                      >
+                        Contribute
+                      </a>
+                    </Typography>
+                  </Popover>
+                </span>
             </h1>
           </Font>
+
+          <Modal
+              aria-labelledby="transition-modal-title"
+              aria-describedby="transition-modal-description"
+              open={feedbackModalOpen}
+              onClose={handleFeedbackModalClose}
+              closeAfterTransition
+              BackdropComponent={Backdrop}
+              BackdropProps={{
+                timeout: 500,
+              }}
+          >
+            <Fade in={feedbackModalOpen}>
+              <Box sx={feedbackModalStyle}>
+                <TextField
+                    id="outlined-multiline-static"
+                    label="Note"
+                    multiline
+                    rows={8}
+                    fullWidth
+                    color="success"
+                    focused
+                    defaultValue={feedbackContent}
+                    onBlur={(event) => handleFeedbackChange(event.target.value) }
+                />
+                <Stack direction="row" spacing={2} style={{ marginTop: "15px" }}>
+                  <Button
+                      variant="contained"
+                      style={{ backgroundColor: "#FF0000" }}
+                      onClick={() => {
+                        handleFeedbackModalClose();
+                      }}
+                  >
+                    <CancelIcon />
+                  </Button>
+                  <Button
+                      variant="contained"
+                      style={{ backgroundColor: "#00ff00" }}
+                      onClick={() => {
+                        handleFeedback();
+                        handleFeedbackModalClose();
+                      }}
+                  >
+                    <CheckIcon />
+                  </Button>
+                </Stack>
+              </Box>
+            </Fade>
+          </Modal>
           
           <Box textAlign="center">
             <Button

@@ -1,19 +1,13 @@
-from .models import *
-from .serializers import *
 from .services import *
-from django.conf import settings
 from django.shortcuts import redirect
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import status, serializers
 from rest_framework.views import APIView
-from rest_framework.response import Response
-from datetime import timedelta
-from urllib.parse import urlencode
-import jwt
-import time
+
+from .services import *
+
 
 class GoogleLoginApi(APIView):
     def get(self, request, *args, **kwargs):
@@ -119,3 +113,8 @@ def feedback(request):
 @api_view(['GET'])
 def ping(request):
     return Response({'hey': 'hey'})
+
+# from django.shortcuts import render
+#
+# def index(request):
+#     return render(request, "build/index.html")

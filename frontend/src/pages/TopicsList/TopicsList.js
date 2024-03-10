@@ -42,7 +42,6 @@ const TopicsList = () => {
   const apiBaseURL = process.env.REACT_APP_API_URL;
 
   let { logoutUser, accessToken } = useContext(AuthContext);
-  let authenticated = false;
   const navigate = useNavigate();
   const cookies = new Cookies();
 
@@ -52,7 +51,7 @@ const TopicsList = () => {
   useEffect(() => {
     Aos.init({ duration: 2000 });
     if (accessToken) {
-      authenticated = true;
+      setAuthenticated(true);
     }
     else if (!cookies.get("dsandeavour_topics_pinned") || !cookies.get("dsandeavour_problem_status")) {
       navigate("/login");
@@ -66,6 +65,7 @@ const TopicsList = () => {
   const [solvedproblem, setProblemSolved] = useState(0);
   const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
   const [feedbackContent, setFeedbackContent] = useState("");
+  const [authenticated, setAuthenticated] = useState(false);
   let problemDone = 0;
   
   const handleFeedbackModalOpen = () => {
@@ -92,7 +92,6 @@ const TopicsList = () => {
   const menuId = menuOpen ? "simple-popover" : undefined;
 
   const getProblemStatus = async () => {
-    console.log("Problem Status");
     if (authenticated) {
       let response = await fetch(`${apiBaseURL}/api/problem-status/`, {
         method: "GET",
@@ -114,13 +113,15 @@ const TopicsList = () => {
       setProblemSolved(problemDone);
     } else {
       let tempProblemStatus = cookies.get("dsandeavour_problem_status");
-      setProblemStatus(tempProblemStatus);
-      for (let i = 0; i < 195; i++) {
-        if (tempProblemStatus[i] === "1") {
-          problemDone += 1;
+      if(tempProblemStatus) {
+        setProblemStatus(tempProblemStatus);
+        for (let i = 0; i < 195; i++) {
+          if (tempProblemStatus[i] === "1") {
+            problemDone += 1;
+          }
         }
+        setProblemSolved(problemDone);
       }
-      setProblemSolved(problemDone);
     }
     setLoading(false);
   };
@@ -135,10 +136,9 @@ const TopicsList = () => {
 
   useEffect(() => {
     getProblemStatus();
-  }, [problemStatus]);
+  }, [problemStatus, authenticated]);
 
   const getPinnedTopics = async () => {
-    console.log("Pinned Status");
     if (authenticated) {
       let response = await fetch(`${apiBaseURL}/api/pinned-topics/`, {
         method: "GET",
@@ -161,12 +161,11 @@ const TopicsList = () => {
   };
 
   const handleFeedback = async () => {
-    console.log("Feedback");
-    console.log(feedbackContent);
     if (authenticated) {
       if (feedbackContent === undefined || feedbackContent === "") {
         return;
       }
+      console.log("Submit Feedback");
       let response = await fetch(`${apiBaseURL}/api/submitFeedback/`, {
         method: "POST",
         headers: {
@@ -189,7 +188,7 @@ const TopicsList = () => {
 
   useEffect(() => {
     getPinnedTopics();
-  }, []);
+  }, [pinnedTopics, authenticated]);
 
   return (
     <>
@@ -229,7 +228,7 @@ const TopicsList = () => {
                   {
                     authenticated?
                     <span onClick={handleMenuClick} style={{ marginRight: '10vh', cursor: 'pointer' }}>
-                      <ReactRoundedImage image={picture} roundedSize="0" 
+                      <ReactRoundedImage image={picture} roundedSize="0"
                       imageWidth={smallPicture ? "40" : "60"} imageHeight={smallPicture ? "40" : "60"} />
                     </span>
                     :
@@ -333,7 +332,7 @@ const TopicsList = () => {
               paddingRight={5}
             >
               {topics.map((topic, index) => {
-                if(pinnedTopics[index] === "1")
+                if(pinnedTopics && pinnedTopics[index] === "1")
                   return (
                     <React.Fragment key={index}>
                       <Grid item xs={12} md={6} lg={4}>
@@ -396,7 +395,7 @@ const TopicsList = () => {
                       topic={topic}
                       index={index}
                       problem_status={problemStatus}
-                      currPinnedStatus={pinnedTopics[index]}
+                      currPinnedStatus={pinnedTopics ? pinnedTopics[index] : pinnedTopics}
                       pinnedTopics={pinnedTopics}
                       setPinnedTopics={setPinnedTopics}
                       loading={loading}

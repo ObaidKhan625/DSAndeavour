@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+.env
 
 # testing
 /coverage
@@ -22,7 +23,3 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 node_modules
-
-
-password=Milanor'sClusterForSS 
-//FOR dJNAGO Backend framework

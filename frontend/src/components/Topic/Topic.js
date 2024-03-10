@@ -32,7 +32,7 @@ export default function Problem(props) {
 
   const pinTopic = async () => {
     console.log("Pin");
-    if (props.pinnedTopics[props.index] === "1") {
+    if (props.PinnedTopics && props.pinnedTopics[props.index] === "1") {
       return;
     }
     if (authenticated) {
@@ -108,10 +108,6 @@ export default function Problem(props) {
     }
     props.deactivateLoading();
   };
-
-  // useEffect(() => {
-  //   setCurrPinnedStatus(props.currPinnedStatus);
-  // }, [props.currPinnedStatus]);
   
   if (props.topic.name === "ARRAYS 1") {
     for (let i = 0; i < 6; i++) {
@@ -439,7 +435,7 @@ export default function Problem(props) {
               <IconButton
                 aria-label="settings"
                 onClick={(e) => {
-                  if (props.pinnedTopics[props.index] === "0" && props.listType === "topics") {
+                  if (props.pinnedTopics && props.pinnedTopics[props.index] === "0" && props.listType === "topics") {
                     props.activateLoading();
                     pinTopic(props.topic);
                   } else {
@@ -448,7 +444,7 @@ export default function Problem(props) {
                   }
                 }}
               >
-                {props.pinnedTopics[props.index] === "0" && props.listType === "topics" ? (
+                {props.pinnedTopics && props.pinnedTopics[props.index] === "0" && props.listType === "topics" ? (
                   <BookmarkAddIcon />
                 ) : (
                   <BookmarkRemoveIcon />

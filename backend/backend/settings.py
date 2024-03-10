@@ -8,6 +8,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from django.middleware.common import CommonMiddleware
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,10 +24,10 @@ AUTH_USER_MODEL = 'api.User'
 SECRET_KEY = 'Your Secret Key'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['*']
+# CSRF_TRUSTED_ORIGINS = ['*']
 
 # Application definition
 
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'oauth2_provider',
     'api',
 ]
 
@@ -81,12 +83,20 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 # LOCAL SETTINGS
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'mbdb/db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'your_db',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres123',
+        'NAME': 'db_name',
+        'USER': 'db_user',
+        'PASSWORD': 'db_password',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -133,10 +143,6 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -148,6 +154,6 @@ BASE_APP_URL = "http://localhost:3000"
 
 BASE_API_URL = "http://localhost:8000"
 
-GOOGLE_OAUTH2_CLIENT_ID = "your_client_id"
+GOOGLE_OAUTH2_CLIENT_ID = "your_oauth_client_id"
 
-GOOGLE_OAUTH2_CLIENT_SECRET = "your_client_secret"
+GOOGLE_OAUTH2_CLIENT_SECRET = "your_oauth_client_secret"
